@@ -1,9 +1,10 @@
 @extends('template')
 
-@section('section1')
+      @section('section1')
+
     <div class="col s12 m12 l12" style="height:20px;"></div>
 
-    <div class="col s12 m4 l4 offset-m3 offset-l3 form z-depth-5" style="padding:0px;">
+     <div class="col s12 m4 l4 offset-m3 offset-l3 form z-depth-5" style="padding:0px;">
 
       <div class='form-header pad-2'>
         <h2 class='thin font-light' align='center'>

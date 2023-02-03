@@ -27,8 +27,10 @@ Auth::routes();
 Route::resource('companies',CompanyController::class);  // ->middleware('role:superadmin');
 
 /* Client routes  */
-Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
 
+Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+Route::get('/client_create', [App\Http\Controllers\ClientController::class, 'client_create'])->name('client_create');
+Route::post('/client_add', [App\Http\Controllers\ClientController::class, 'client_add'])->name('client_add');
 
 
 /* Previous Routes  */

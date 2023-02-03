@@ -55,6 +55,9 @@ class CompanyController extends Controller
 
 
             $role = 'admin';
+            $role_client = 'client';
+            $role_provider = 'provider';
+
 
             $user = User::create([
                 'company_id' => $company->id,
@@ -64,6 +67,9 @@ class CompanyController extends Controller
             ]);
 
             $user->assignRole($role);
+            $user->assignRole($role_client);
+            $user->assignRole($role_provider);
+
         return redirect()->route('companies.index')
                         ->with('success','Company created successfully');
     }

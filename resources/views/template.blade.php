@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      {{-- <div id="post_splash" style="display:none;"> --}}
+      {{-- <div id="post_splash"> --}}
 
         <div class="row">
           <!-- <div class="col s2 m1 l1">
