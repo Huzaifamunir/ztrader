@@ -83,42 +83,43 @@
 
         <!-- For page wise scripts -->
         <script>
-var app = new Vue({
-  el: '#app',
-  delimiters: ['[[', ']]'],
+//    var app = new Vue({
+//   el: '#app',
+//   delimiters: ['[[', ']]'],
 
-  data: {
-    auth_user: ,
-    transactions: { total_sales: null, total_payments: null,total: null },
-    stock: { total_sales: null, total_payments: null },
-    client: { total_sales: null, total_payments: null },
-    salesman: { total_sales: null, total_payments: null },
-    provider: { total_sales: null, total_payments: null },
-    reseller: { total_sales: null, total_payments: null }
-  },
+//   data: {
+//     auth_user: ,
+//     transactions: { total_sales: null, total_payments: null,total: null },
+//     stock: { total_sales: null, total_payments: null },
+//     client: { total_sales: null, total_payments: null },
+//     salesman: { total_sales: null, total_payments: null },
+//     provider: { total_sales: null, total_payments: null },
+//     reseller: { total_sales: null, total_payments: null }
+//   },
 
-  computed: {
+//   computed: {
     // total_sets: function(){
     //   var sum=this.price_per_unit*this.quantity;
     //   return sum;
     // }
-  },
+//   },
 
-  methods: {
+//   methods: {
     // find_product: function (id) {
     //   $.get("/product/"+id,function(data, status){
     //     app.product=data;
     //   });
     //   $('#modal1').modal('open');
     // }
-  },
+//   },
 
-  mounted() {
-    $.get("/dashboard/today_sales",function(data, status){
-      app.transactions = data;
-    });
-  }
-});
+//   mounted() {
+//     $.get("/dashboard/today_sales",function(data, status){
+//       app.transactions = data;
+//     });
+//   }
+// });
+//
 </script>
     </body>
 
