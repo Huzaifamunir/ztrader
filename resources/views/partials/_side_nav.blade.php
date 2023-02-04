@@ -1,14 +1,14 @@
 <div id="slide-out" class="side-nav">
-    <div class="navbar">
+
+     <div class="navbar">
         <center>
             <br>
             <img style="height: 88px;" sty src="{{ URL::asset('public/img/logo.png') }}">
         </center>
-    </div>
+     </div>
 
-    <ul class="collapsible" data-collapsible="accordion">
+     <ul class="collapsible" data-collapsible="accordion">
         <table class="highlight font-dark">
-
             <thead>
               <!-- <tr>
                   <th>Name</th>
@@ -88,7 +88,7 @@
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Client">
-                    <a href="">
+                    <a href="{{ route('client_create')}}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>
@@ -136,14 +136,14 @@
 
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Provider Index">
-                    <a href="">
+                    <a href="{{ route('provider')}}">
                         <span class="mdi mdi-account-box-outline font-dark">
                            <span>Provider</span>
                         </span>
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Provider">
-                    <a href="">
+                    <a href="{{ route('provider_create')}}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>

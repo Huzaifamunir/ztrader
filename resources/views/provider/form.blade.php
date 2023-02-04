@@ -2,7 +2,7 @@
 
      @section('section1')
 
-     <div class="col s12 m12 l12" style="height:20px;"></div>
+    <div class="col s12 m12 l12" style="height:20px;"></div>
 
      <div class="col s12 m6 l6 offset-m3 offset-l3 form z-depth-5 form-div" style="padding:0px;">
 
@@ -17,8 +17,8 @@
          </a>
 
          <h4 class='thin font-light tooltipped' align='center' data-position="bottom" data-delay="200" data-tooltip="add new">
-           <span class="mdi mdi-account-star"></span>
-           <span class="uc-first">Client</span>
+           <span class="mdi mdi-account-box-outline"></span>
+           <span class="uc-first">Provider</span>
          </h4>
 
        </div>
@@ -29,6 +29,7 @@
         <form method="post" action="{{ route('client_add') }}">
             {{-- @endif --}}
             @csrf
+
 
             @if(session()->has('msg'))
                  <div class="row" id="error_bag" style="margin-top:2%;">
@@ -55,41 +56,52 @@
               </div>
 
               <div class="input-field col s4">
-                <input type="hidden" name="role" value="Client" required/>
+
+                <input type="hidden" name="role" value="Provider" required/>
 
                 <input type="text" name="first_name" required/>
                 <label for="first_name" >First Name</label>
+
               </div>
 
               <div class="input-field col s4">
+
                 <input type="text" name="last_name" required/>
                 <label for="last_name" >Last Name</label>
+
               </div>
 
               <div class="input-field col s4">
-                  <input type="number" name="start_bal" required />
-                  <label for="opening_balance" >Opening Balance</label>
-              </div>
+
+                <select selected name="city_id" required >
+                     <option selected>Choose </option>
+                     <option value="">A</option>
+                     <option value="">B</option>
+                     <option value="">C</option>
+                </select>
+
+             </div>
+
 
               <div class="input-field col s6">
+
                 <input type="text" name="mobile_no"  required/>
                 <label for="mobile_no" >Mobile #</label>
-              </div>
-
-              <div class="input-field col s4">
-                 <select selected name="city_id" required >
-                      <option selected>Choose </option>
-                      <option value="">A</option>
-                      <option value="">B</option>
-                      <option value="">C</option>
-                 </select>
 
               </div>
+
+
+              <div class="input-field col s6">
+
+                <input type="text" name="address" required/>
+                 <label for="Address" >Address</label>
+
+                </div>
 
               <div class="input-field col s8">
-                <input type="text" name="address" required/>
-                <label for="Address" >Address</label>
-              </div>
+                <input type="text" name="comment" required />
+                <label for="opening_balance" >Comment</label>
+            </div>
 
               <div class="input-field col s6 m6 l6">
                   <button type="submit" class="btn" style="background:green;margin-bottom:2%;">Submit</button>

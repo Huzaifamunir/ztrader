@@ -85,7 +85,7 @@
                 data-tooltip="go back">
                 <span class="mdi mdi-arrow-left"></span>
             </a>
-            <a class="btn add-btn tooltipped" href="{{ route('client_create') }}" data-position="bottom" data-delay="200"
+            <a class="btn add-btn tooltipped" href="{{ route('provider_create') }}" data-position="bottom" data-delay="200"
                 data-tooltip="add new">
                 <span class="mdi mdi-plus"></span>
             </a>
@@ -138,27 +138,27 @@
       </center> --}}
         {{-- @else --}}
 
-        <table class="highlight bordered display" id="clientTable">
+        <table class="highlight bordered display" id="providerTable">
 
             <caption>
                 <h3 class="thin">
                     <span class="mdi mdi-account-star"></span>
-                    Clients
+                    Provider
                 </h3>
             </caption>
 
             <thead>
                 <tr>
                     <th hidden>No#</th>
-                    <th style="padding-right:160px;">Client Name</th>
+                    <th style="padding-right:160px;">Name</th>
+                    {{-- <th>City</th>
+                    <th>Address</th> --}}
+                    <th>Company</th>
                     <th>Mobile #</th>
-                    <th>Current Balance</th>
-                    <th>City</th>
-                    <th>Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
-{{ $k=0 }}
+
             <tbody>
                 {{-- @foreach ($Clients as $Client) --}}
                     {{-- <td hidden>{{$i++}}</td> --}}
@@ -169,13 +169,10 @@
                     {{-- <td>{{ $Client['user']['person']['address'] }}</td> --}}
                     {{-- <td>{{ $Client->current_bal }}</td> --}}
                  @foreach ($client as $i )
-
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
-                 <td>{{ $i->mobileno }}</td>
-                 <td>{{$i->start_bal}}</td>
-                 <td>{{$i->city_id}}</td>
-                 <td>{{$i->address}}</td>
+                 <td>{{ $i->name }}</td>
+                 <td>{{$i->mobileno}}</td>
                  <td>
                     <a class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
@@ -188,9 +185,6 @@
                     </a>
                 </td>
                  @endforeach
-
-
-
                 {{-- @endforeach --}}
             </tbody>
         </table>
@@ -202,7 +196,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         $(document).ready(function() {
-            $('#clientTable').DataTable({
+            $('#providerTable').DataTable({
                 "pageLength": 25,
                 order: [
                     [0, 'asc']
