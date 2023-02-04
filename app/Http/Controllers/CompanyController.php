@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class CompanyController extends Controller
 {
@@ -45,32 +46,35 @@ class CompanyController extends Controller
         // $this->validate($request, [
         //     'name' => 'required|unique:permissions,name',
         // ]);
-
-        $company = Company::create([
+         $company = Company::create([
             'company_name' => $request->input('company_name'),
             'company_phoneno' => $request->input('company_phoneno'),
             'company_address' => $request->input('company_address'),
             'company_email' => $request->input('company_email'),
-            ]);
-
+         ]);
 
             $role = 'admin';
-            $role_client = 'client';
-            $role_provider = 'provider';
 
+             $user = User::create([
+                 'company_id' => $company->id,
+                 'name' => $request->company_username,
+                 'email' => $request->company_email,
+                 'password' => Hash::make($request->input('company_password')),
+             ]);
 
-            $user = User::create([
-                'company_id' => $company->id,
-                'name' => $request->company_username,
-                'email' => $request->company_email,
-                'password' => Hash::make($request->input('company_password')),
-            ]);
+             $array=array("Client","Provider");
+             $user->assignRole($role);
 
-            $user->assignRole($role);
-            $user->assignRole($role_client);
-            $user->assignRole($role_provider);
+             // $user->assignRole($role_client);
+             // $user->assignRole($role_provider);
 
-        return redirect()->route('companies.index')
+             foreach($array as $i){
+                  $role = Role::create([
+                     'company_id' => $company->id,
+                     'name' => $i]);
+                }
+
+     return redirect()->route('companies.index')
                         ->with('success','Company created successfully');
     }
     /**
