@@ -95,7 +95,7 @@
       <div id="pre_splash" class="center-align">
         <div style="margin-top:20%;"> <!-- margin-top:20%; -->
 
-          <img src="{{ URL::asset('public/img/loader.gif') }}" class="responsive-img">
+          {{-- <img src="{{ URL::asset('public/img/loader.gif') }}" class="responsive-img"> --}}
 
           <!-- <div class="preloader-wrapper small active">
             <div class="spinner-layer spinner-green-only">
