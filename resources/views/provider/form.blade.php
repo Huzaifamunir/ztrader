@@ -103,6 +103,11 @@
                 <label for="opening_balance" >Comment</label>
             </div>
 
+            <div class="input-field col s4">
+                <input type="text" name="company_name" required />
+                <label for="Company_name" >Company NAme</label>
+            </div>
+
               <div class="input-field col s6 m6 l6">
                   <button type="submit" class="btn" style="background:green;margin-bottom:2%;">Submit</button>
               </div>

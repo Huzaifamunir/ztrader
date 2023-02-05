@@ -13,7 +13,7 @@ class ProviderController extends Controller
 
         // $id=Auth::user()->company_id;
         // $client= User::where('identify','=','client')->where('company_id','=',$id)->get();
-        $client=User::role('Provider')->get();
+        $client=User::role('Provider')->where('company_id','=',Auth()->user()->company_id)->get();
         return view('provider.index',compact('client'));
 
        }
@@ -21,4 +21,9 @@ class ProviderController extends Controller
      public function provider_create(){
        return view('provider.form');
      }
+
+     public function provider_single($id){
+        $provider=User::where('id','=',$id)->first();
+        return view('provider.single',compact('provider'));
+}
 }

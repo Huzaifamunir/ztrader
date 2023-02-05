@@ -171,16 +171,16 @@
                  @foreach ($client as $i )
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
-                 <td>{{ $i->name }}</td>
+                 <td>{{ $i->company_name }}</td>
                  <td>{{$i->mobileno}}</td>
                  <td>
-                    <a class="action-btn single-btn" href="">
+                    {{-- <a class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
-                    </a>
+                    </a> --}}
                     <a class="action-btn edit-btn" href="">
                         <span class="mdi mdi-pen"></span>
                     </a>
-                    <a class="action-btn single-btn" href="">
+                    <a class="action-btn single-btn" href="{{ route('provider_single',$i->id)}}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
                 </td>
