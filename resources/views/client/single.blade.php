@@ -61,7 +61,7 @@
 
       <tr>
         <th>
-          <a class="btn edit-btn" href="">
+          <a class="btn edit-btn" href="{{ route('client_edit',$user->id)}}">
             <span class="mdi mdi-pen"></span> Edit
           </a>
         </th>
