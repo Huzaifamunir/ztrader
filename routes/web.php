@@ -30,11 +30,13 @@ Route::resource('companies',CompanyController::class);  // ->middleware('role:su
 Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
 Route::get('/client_create', [App\Http\Controllers\ClientController::class, 'client_create'])->name('client_create');
 Route::post('/client_add', [App\Http\Controllers\ClientController::class, 'client_add'])->name('client_add');
+Route::get('/client_single/{id}', [App\Http\Controllers\ClientController::class, 'client_single'])->name('client_single');
 
 
 /* Provider routes  */
 Route::get('/provider', [App\Http\Controllers\ProviderController::class, 'index'])->name('provider');
 Route::get('/provider_create', [App\Http\Controllers\ProviderController::class, 'provider_create'])->name('provider_create');
+Route::get('/provider_single/{id}', [App\Http\Controllers\ProviderController::class, 'provider_single'])->name('provider_single');
 
 
 /* Previous Routes  */

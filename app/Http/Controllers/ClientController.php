@@ -14,7 +14,7 @@ class ClientController extends Controller
 
         //  $id=Auth::user()->company_id;
         //  $client= User::where('company_id','=',$id)->where()->get();
-         $client=User::role('Client')->get();
+         $client=User::role('Client')->where('company_id','=',Auth()->user()->company_id)->get();
          return view('client.index',compact('client'));
 
         }
@@ -57,6 +57,9 @@ class ClientController extends Controller
          if(isset($request->comment)){
             $client->comment=$request->comment;
          }
+         if(isset($request->company_name)){
+            $client->comment=$request->company_name;
+         }
          $client->mobileno=$request->mobile_no;
          $client->city_id=$request->city_id;
          $client->address=$request->address;
@@ -73,5 +76,9 @@ class ClientController extends Controller
          }else{
             return redirect()->back()->with('error','Sorry Something Went Wrong, Try Again');
          }
+     }
+     public function client_single($id){
+              $user=User::where('id','=',$id)->first();
+              return view('client.single',compact('user'));
      }
 }
