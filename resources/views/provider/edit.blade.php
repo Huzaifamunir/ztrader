@@ -26,12 +26,11 @@
 
        <div class="col s12 m12 l12" id="app">
 
-        <form method="post" action="{{ route('client_add') }}">
+        <form method="post" action="{{ route('provider_update') }}">
             {{-- @endif --}}
             @csrf
 
-
-            @if(session()->has('msg'))
+             @if(session()->has('msg'))
                  <div class="row" id="error_bag" style="margin-top:2%;">
                    <div class="error-bag pad-2" style='color:white;'>
                       <span class="mdi mdi-close-box" onclick="close_me('error_bag')" style="float:right;color:black;font-size:20px;"></span>
@@ -54,19 +53,23 @@
                @endif
 
               </div>
-
+             <?php
+             $name=explode('.',$provider->name);
+             $first_name=$name[0];
+             $last_name=$name[1];
+              ?>
               <div class="input-field col s4">
 
-                <input type="hidden" name="role" value="Provider" required/>
+                <input type="hidden" name="id" value="{{ $provider->id }}" required/>
 
-                <input type="text" name="first_name" required/>
+                <input type="text" name="first_name" value="{{ $first_name}}" required/>
                 <label for="first_name" >First Name</label>
 
               </div>
 
               <div class="input-field col s4">
 
-                <input type="text" name="last_name" required/>
+                <input type="text" name="last_name" value="{{ $last_name }}" required/>
                 <label for="last_name" >Last Name</label>
 
               </div>
@@ -75,9 +78,9 @@
 
                 <select selected name="city_id" required >
                      <option selected>Choose </option>
-                     <option value="">A</option>
-                     <option value="">B</option>
-                     <option value="">C</option>
+                     <option value="1">A</option>
+                     <option value="2">B</option>
+                     <option value="3">C</option>
                 </select>
 
              </div>
@@ -85,7 +88,7 @@
 
               <div class="input-field col s6">
 
-                <input type="text" name="mobile_no"  required/>
+                <input type="text" name="mobile_no" value="{{ $provider->mobileno }}"  required/>
                 <label for="mobile_no" >Mobile #</label>
 
               </div>
@@ -93,18 +96,18 @@
 
               <div class="input-field col s6">
 
-                <input type="text" name="address" required/>
+                <input type="text" name="address" value={{ $provider->address }} required/>
                  <label for="Address" >Address</label>
 
                 </div>
 
               <div class="input-field col s8">
-                <input type="text" name="comment" required />
+                <input type="text" name="comment" value="{{ $provider->comment }}" required />
                 <label for="opening_balance" >Comment</label>
             </div>
 
             <div class="input-field col s4">
-                <input type="text" name="company_name" required />
+                <input type="text" name="company_name" value="{{ $provider->company_name }}" required />
                 <label for="Company_name" >Company NAme</label>
             </div>
 
