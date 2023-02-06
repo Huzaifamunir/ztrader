@@ -93,12 +93,12 @@
       <!-- </div> -->
 
 
-      
+
       <div id="pre_splash" class="center-align">
-        <div style="margin-top:20%;"> <!-- margin-top:20%; -->
+        <div style="margin-top:20%;">
+            <!-- margin-top:20%; -->
 
-          {{-- <img src="{{ URL::asset('public/img/loader.gif') }}" class="responsive-img"> --}}
-
+            {{-- <img src="{{ URL::asset('public/img/loader.gif') }}" class="responsive-img"> --}}
           <!-- <div class="preloader-wrapper small active">
             <div class="spinner-layer spinner-green-only">
               <div class="circle-clipper left">
@@ -111,11 +111,10 @@
             </div>
           </div>
           <span class="thin" style="font-size:18px;">&nbsp;&nbsp;LOADING VIEW</span> -->
+
         </div>
       </div>
-
       {{-- <div id="post_splash"> --}}
-
         <div class="row">
           <!-- <div class="col s2 m1 l1">
             // include _short_nav
@@ -131,14 +130,15 @@
         <!-- <script src="{{ asset('js/app.js') }}"></script> -->
 
         <!-- Scripts Section -->
+
         <script src="{{ URL::asset('public/js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ URL::asset('public/js/materialize.min.js') }}"></script>
         <script src="{{ URL::asset('public/js/nouislider.js') }}"></script>
         <script src="{{ URL::asset('public/js/printThis.js') }}"></script>
         <script src="{{ URL::asset('public/js/vue.js') }}"></script>
         <script src="{{ URL::asset('public/js/custom.js') }}"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <!--                -->
         <!-- Flash Messages -->
         <!--                -->
@@ -207,7 +207,8 @@
           });
 
           function print_this(id){
-            $("#"+id).printThis({
+
+             $("#"+id).printThis({
               importCSS: true,
               importStyle: true,
               loadCSS: [
@@ -217,7 +218,6 @@
             });
           }
         </script>
-
         <!-- For page wise scripts -->
         @yield('page_scripts')
     </body>

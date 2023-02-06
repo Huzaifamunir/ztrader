@@ -2,35 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
+use App\Item;
 use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\MainCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Enforce middlewares.
      */
-    // function __construct()
-    // {
-    //      $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
-    //      $this->middleware('permission:product-create', ['only' => ['create','store']]);
-    //      $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-    //      $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-    // }
+    public function __construct()
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(5);
-        return view('products.index',compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        if($request->ajax()){
+            $Products=Product::where('company_id','=',Auth()->user()->company_id)->get();
+            return $Products;
+        }
+
+        $Products=Product::where('company_id','=',Auth()->user()->company_id)->orderBy('name','asc')->paginate(100);
+
+        return view("product/index", compact("Products"));
     }
 
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getsubcategories(Request $request)
+    {
+        if($request->ajax()){
+            $Products=SubCategory::where('main_category_id','=',$request->id)->get();
+            $products2=json_encode($Products);
+            return json_decode($products2);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +56,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $form=[
+            "value" => "add",
+            "name" => "Add Product",
+            "submit" => "Save"
+        ];
+
+        return view('product/form',compact('form'));
     }
 
     /**
@@ -49,74 +73,152 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        $input = $request->all();
+        $this->validate($request, Product::$rules);
 
-        Product::create($request->all());
+        // dd($request->all());
+        if(isset($input['image'])){
 
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+            $image = $request->image;
+            $destinationPath = public_path('/img/product/');
+            $image_name = time()."_gtl.".$image->getClientOriginalExtension();
+            $image->move($destinationPath,$image_name);
+            $input['image'] = $image_name;
+
+        }
+
+        $Product = Product::create($input);
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'New Record Successfully Created !');
+        $request->session()->flash('message.link', 'product/'.$Product->id);
+
+        return Redirect('product');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Request $request, $id)
     {
-        return view('products.show',compact('product'));
+        if($request->ajax()){
+            $Product = Product::find($id)->toArray();
+            return $Product;
+        }
+
+        // $Product = Product::with('sub_category.main_category')->find($id);
+        $Product = Product::where('id','=',$id)->first();
+        $subcategory=SubCategory::where('id','=',$Product->sub_category_id)->first();
+        $maincategory=MainCategory::where('id','=',$subcategory->main_category_id)->first();
+
+        return view('product/single', compact('Product','maincategory'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('products.edit',compact('product'));
+        $Product=Product::find($id);
+
+        $form=[
+            "value" => "update",
+            "name" => "Update Product",
+            "submit" => "Update"
+        ];
+
+        return view('product/form',compact('form','Product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-         request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        $input = $request->all();
+        $update_rules=Product::$rules;
+        $update_rules['model']='required|string|unique:products,model,'.$id;
+        $this->validate($request, $update_rules);
 
-        $product->update($request->all());
+        if(isset($input['image'])){
+            $image = $request->image;
+            $destinationPath = public_path('/img/product/');
+            $image_name = time()."_gtl.".$image->getClientOriginalExtension();
+            $image->move($destinationPath,$image_name);
+            $input['image'] = $image_name;
+        }
 
-        return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+        $Product=Product::find($id);
+        $Product->name=$request->name;
+        if($request->sub_category_id !== null){
+        $Product->sub_category_id=$request->sub_category_id;
+        }
+        $Product->model=$request->model;
+        $Product->purchase_price=$request->purchase_price;
+        $Product->sale_price=$request->sale_price;
+        $Product->current_stock=$request->current_stock;
+        $Product->min_stock_value=$request->min_stock_value;
+
+        $Product->save();
+        // $Product->update($input);
+
+        $request->session()->flash('message.level', 'warning');
+        $request->session()->flash('message.content', 'Record Updated !');
+        $request->session()->flash('message.link', 'product/'.$id);
+
+        return Redirect('product');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, $id)
     {
-        $product->delete();
+        $Product = Product::with('sales')->findOrFail($id);
 
-        return redirect()->route('products.index')
-                        ->with('success','Product deleted successfully');
+        if($Product['sales']->isEmpty()){
+            $Product->delete();
+
+            $request->session()->flash('message.level', 'error');
+            $request->session()->flash('message.content', 'Record deleted!');
+
+            return Redirect('product');
+        }
+        else{
+            $request->session()->flash('message.level', 'error');
+            $request->session()->flash('message.content', 'Product is refered in sale.');
+
+            return Redirect::back();
+        }
+
+        return Redirect('product');
     }
 
-  // {{-- public function permissions(){
-     //   return $permissions =permission::all();
- //  }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $Products=Product::where($request['column'], 'LIKE', "%".$request['keyword']."%")->paginate(10);
+
+        return view("product/index", compact("Products"));
+    }
 }

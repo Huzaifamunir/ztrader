@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PermissionController;
+use app\Http\Controllers\MainCategoryController;
 use  Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('companies',CompanyController::class);  // ->middleware('role:superadmin');
+/* Menu routes  */
+Route::get('/menu', function () {
+	return view('menu');
+})->name('menu');
 
 /* Client routes  */
 Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
@@ -42,6 +48,21 @@ Route::get('/provider_single/{id}', [App\Http\Controllers\ProviderController::cl
 Route::get('/provider_edit/{id}', [App\Http\Controllers\ProviderController::class, 'provider_edit'])->name('provider_edit');
 Route::post('/provider_update', [App\Http\Controllers\ProviderController::class, 'provider_update'])->name('provider_update');
 Route::post('/provider_delete/{id}', [App\Http\Controllers\ProviderController::class, 'provider_delete'])->name('provider_delete');
+
+Route::get('/getsubcategories', [App\Http\Controllers\ProductController::class, 'getsubcategories'])->name('getsubcategories');
+
+/* Resource routes  */
+Route::resource('sub_category','App\Http\Controllers\SubCategoryController');
+Route::resource('main_category','App\Http\Controllers\MainCategoryController');
+
+Route::get('/main_category/search','App\Http\Controllers\MainCategoryController@search')->name('main_category.search');
+Route::resource('country','App\Http\Controllers\CountryController');
+Route::resource('state','App\Http\Controllers\StateController');
+Route::resource('city','App\Http\Controllers\CityController');
+Route::resource('product','App\Http\Controllers\ProductController');
+Route::resource('stock','App\Http\Controllers\StockController');
+Route::resource('sale','App\Http\Controllers\SaleController');
+Route::resource('payment','App\Http\Controllers\paymentController');
 
 
 /* Previous Routes  */

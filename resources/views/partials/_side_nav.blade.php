@@ -111,7 +111,7 @@
 
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Products Index">
-                    <a href="">
+                    <a href="{{ route('products.index') }}">
                         <span class="mdi mdi-apple-keyboard-command font-dark">
                            <span>Products</span>
                         </span>
@@ -151,7 +151,7 @@
 
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Dashboard Index">
-                    <a href="">
+                    <a href="{{ url('menu')}}">
                         <span class="mdi mdi-menu font-dark">
                             <span> Menu</span>
                         </span>
