@@ -63,7 +63,7 @@
           </li>
           <li class="treeview">
             @role('admin')
-             <a href="#">
+             <a href="{{ route('products.index') }}">
              <i class="fa fa-book"></i><span>Products</span>
              <span class="pull-right-container">
              <i class="fa fa-angle-left pull-right"></i>
@@ -71,7 +71,6 @@
              </a>
              <ul class="treeview-menu">
                 <li><a href="{{ route('products.index') }}">Manage Products</a></li>
-
              </ul>
              @endrole
           </li>
@@ -358,7 +357,7 @@
           </li>
        </ul>
 
-       
+
     </div>
 
     <!-- /.sidebar -->
