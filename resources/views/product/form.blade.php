@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('section1')
+   @section('section1')
 
   @component('components.entity_form', ['entity'=>'product','icon'=>'apple-keyboard-command'])
 
@@ -19,7 +19,7 @@
           <label class="active">Main Category</label>
 
           <div>
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_main_category ]]</label>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[ selected_main_category ]]</label>
           </div>
 
           <datalist id="main_category_list">
@@ -33,7 +33,7 @@
           <label class="active">Sub Category</label>
 
           <div>
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_sub_category ]]</label>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[ selected_sub_category ]]</label>
           </div>
 
           <datalist id="sub_category_list">
@@ -43,9 +43,11 @@
         </div>
 
         <div class="input-field col s12 m5 l5">
+
           @component('components.text_field', ['field_name'=>'name','field_label'=>'Product Name'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
+
         </div>
 
         <div class="input-field col s6 m2 l6">
@@ -125,18 +127,30 @@ $(document).ready(function(){
      el: '#app',
      delimiters: ['[[', ']]'],
 
-  data: {
-    main_category_id: null,
-    sub_category_id: @if($form['value']=='update'){{$Product['sub_category_id'] }}@else null @endif,
-  },
+     data: {
+     main_category_id: null,
+     sub_category_id: null,
+     },
 
-  computed: {
+      computed: {
+
      selected_main_category: function(){
-      var main_category=$('#main_category_'+this.main_category_id).html();
+         var main_category=$('#main_category_'+this.main_category_id).html();
+
+         $(".main_category").remove();
+              $.get("{{ App::make('url')->to('/') }}/main_category",function(data, status){
+         $.each(data, function(key,val){
+           $("#main_category_list").append("<option value='"+val.id+"' class=main_category id='main_category"+val.id+"'>"+val.name+"</option>");
+              });
+         });
+
       return main_category;
+
     },
+
      selected_sub_category: function(){
       var sub_category=$('#sub_category_'+this.sub_category_id).html();
+      $('#sub_category_'+this.sub_category_id).remove();
       return sub_category;
     }
   },
@@ -144,41 +158,34 @@ $(document).ready(function(){
   methods: {
      get_sub_categories: function () {
 
-        // $.get("{{ App::make('url')->to('/') }}/main_category",function(data, status){
-        //     $(`.main_category`).remove();
-        // $.each(data, function(key,val){
-        //    $("#main_category_list").append("<option value='"+val.id+"' class=`main_category` id='sub_category"+val.id+"'>"+val.name+"</option>");
-        //  });
-
-        //  });
-        // $(`.main_category`).remove();
+        // alert('hello');
+        $(".sub_category").remove();
          $.get("{{ App::make('url')->to('/') }}/getsubcategories",
          {
          id: this.main_category_id
          },
       function(data, status){
-          $(`.sub_category`).remove();
           $.each(data, function(key,val){
-          $("#sub_category_list").append("<option value='"+val.id+"' class=`sub_category` id='main_category_"+val.id+"'>"+val.name+"</option>");
+          $("#sub_category_list").append("<option value='"+val.id+"' class=sub_category id='main_category_"+val.id+"'>"+val.name+"</option>");
         });
       });
     }
   },
 
   mounted() {
-         $.get("{{ App::make('url')->to('/') }}/main_category",function(data, status){
 
-         $.each(data, function(key,val){
-            $("#main_category_list").append("<option value='"+val.id+"' class=`main_category` id='main_category"+val.id+"'>"+val.name+"</option>");
-         });
+    //       $.get("{{ App::make('url')->to('/') }}/main_category",function(data, status){
+    //       $.each(data, function(key,val){
+    //          $("#main_category_list").append("<option value='"+val.id+"' class=main_category id='main_category"+val.id+"'>"+val.name+"</option>");
+    //       });
+    //  });
 
-    });
-    // $.get("{{ App::make('url')->to('/') }}/sub_category",function(data, status){
-    //   $.each(data, function(key,val){
-    //     $("#sub_category_list").append("<option value='"+val.id+"' class=`subcategory` id='sub_category_"+val.id+"'>"+val.name+"</option>");
-    //   });
-    // });
-  }
+    //      $.get("{{ App::make('url')->to('/') }}/sub_category",function(data, status){
+    //        $.each(data, function(key,val){
+    //          $("#sub_category_list").append("<option value='"+val.id+"' class=subcategory id='sub_category_"+val.id+"'>"+val.name+"</option>");
+    //        });
+        //  });
+       }
 });
 });
 </script>
