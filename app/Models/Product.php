@@ -12,17 +12,18 @@ class Product extends Model
     protected $fillable = [
          'sub_category_id',
          'company_id',
-         'name',
+        //  'name',
           'model',
          'purchase_price',
          'sale_price',
          'current_stock',
-          'min_stock_value',
+        //   'min_stock_value',
           'image',
           'comment',
       ];
 
       public static $rules = [
+        'sub_category_id' => ['required','string'],
         'name'            => ['required','string'],
         'model'           => ['required','string'],
         'sale_price'      => ['nullable','numeric'],

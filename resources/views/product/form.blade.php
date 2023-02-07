@@ -42,13 +42,13 @@
 
         </div>
 
-        <div class="input-field col s12 m5 l5">
+        {{-- <div class="input-field col s12 m5 l5">
 
           @component('components.text_field', ['field_name'=>'name','field_label'=>'Product Name'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
 
-        </div>
+        </div> --}}
 
         <div class="input-field col s6 m2 l6">
 
@@ -75,11 +75,11 @@
           @endcomponent
         </div>
 
-        <div class="input-field col s6 m3 l3">
+        {{-- <div class="input-field col s6 m3 l3">
           @component('components.text_field', ['field_name'=>'min_stock_value','field_label'=>'Minimum Stock Value'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
-        </div>
+        </div> --}}
 
         <div class="file-field input-field col s12">
           @if($form['value']=='update')
