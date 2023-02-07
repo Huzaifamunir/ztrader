@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // use App\Models\Item;
 
-use App\models\Stock;
-use App\models\Product;
-use App\models\StockItems;
-use App\models\User;
+use App\Models\Stock;
+use App\Models\Product;
+use App\Models\StockItems;
+use App\Models\User;
 use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Support\Facades\Auth;
 
