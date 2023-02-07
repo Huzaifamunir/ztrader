@@ -40,7 +40,6 @@ Route::get('/client_single/{id}', [App\Http\Controllers\ClientController::class,
 Route::get('/client_edit/{id}', [App\Http\Controllers\ClientController::class, 'client_edit'])->name('client_edit');
 Route::post('/client_update', [App\Http\Controllers\ClientController::class, 'client_update'])->name('client_update');
 
-
 /* Provider routes  */
 Route::get('/provider', [App\Http\Controllers\ProviderController::class, 'index'])->name('provider');
 Route::get('/provider_create', [App\Http\Controllers\ProviderController::class, 'provider_create'])->name('provider_create');
@@ -55,7 +54,12 @@ Route::get('/getsubcategories', [App\Http\Controllers\ProductController::class, 
 Route::resource('sub_category','App\Http\Controllers\SubCategoryController');
 Route::resource('main_category','App\Http\Controllers\MainCategoryController');
 
+
 Route::get('/main_category/search','App\Http\Controllers\MainCategoryController@search')->name('main_category.search');
+// Route::get('/user_list','App\Http\Controllers\StockController@user_list');
+Route::get('/user_list', [App\Http\Controllers\StockController::class, 'user_list'])->name('user_list');
+Route::get('/product_list', [App\Http\Controllers\StockController::class, 'product_list'])->name('product_list');
+
 Route::resource('country','App\Http\Controllers\CountryController');
 Route::resource('state','App\Http\Controllers\StateController');
 Route::resource('city','App\Http\Controllers\CityController');

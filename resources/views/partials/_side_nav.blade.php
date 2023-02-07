@@ -48,7 +48,6 @@
              </tr>
 
 
-
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Sale Index">
                     <a href="">
@@ -96,14 +95,14 @@
 
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Stock Index">
-                    <a href="">
+                    <a href="{{ route('stock.index') }}">
                         <span class="mdi mdi-truck font-dark">
                            <span>Stock</span>
                         </span>
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Stock">
-                    <a href="">
+                    <a href="{{ route('stock.create') }}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>
