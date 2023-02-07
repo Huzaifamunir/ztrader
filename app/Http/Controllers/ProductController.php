@@ -62,6 +62,7 @@ class ProductController extends Controller
             "submit" => "Save"
         ];
 
+
         return view('product/form',compact('form'));
     }
 
@@ -127,14 +128,17 @@ class ProductController extends Controller
     public function edit($id)
     {
         $Product=Product::find($id);
-
-        $form=[
+         $subcategory=SubCategory::where('id','=',$Product->sub_category_id)->first();
+         $main_category_id=$subcategory->main_category_id;
+         $subcategorys=SubCategory::where('company_id','=',Auth()->user()->company_id);
+         $maincategorys=MainCategory::where('company_id','=',Auth()->user()->company_id);
+         $form=[
             "value" => "update",
             "name" => "Update Product",
             "submit" => "Update"
-        ];
+         ];
 
-        return view('product/form',compact('form','Product'));
+        return view('product/form',compact('form','Product','main_category_id','subcategorys','maincategorys'));
     }
 
     /**

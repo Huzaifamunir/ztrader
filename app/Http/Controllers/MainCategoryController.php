@@ -17,7 +17,7 @@ class MainCategoryController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $MainCategories=MainCategory::all()->unique('name');
+            $MainCategories=MainCategory::where('company_id','=',Auth()->user()->company_id)->get();
 
             return $MainCategories;
         }
