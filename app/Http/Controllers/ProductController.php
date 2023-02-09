@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\MainCategory;
 use Illuminate\Http\Request;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -26,12 +27,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
+
         if($request->ajax()){
             $Products=Product::where('company_id','=',Auth()->user()->company_id)->get();
             return $Products;
         }
 
         $Products=Product::where('company_id','=',Auth()->user()->company_id)->orderBy('name','asc')->paginate(100);
+
+        
 
         return view("product/index", compact("Products"));
     }
@@ -74,6 +79,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+       
         $input = $request->all();
         $this->validate($request, Product::$rules);
 
@@ -89,6 +95,10 @@ class ProductController extends Controller
         }
 
         $Product = Product::create($input);
+        
+        $update=Product::where('id',$Product->id)->first();
+        $update->company_id=Auth::user()->company_id;
+        $update->save();
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'New Record Successfully Created !');
@@ -128,7 +138,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $Product=Product::find($id);
+        
          $subcategory=SubCategory::where('id','=',$Product->sub_category_id)->first();
+         
          $main_category_id=$subcategory->main_category_id;
          $subcategorys=SubCategory::where('company_id','=',Auth()->user()->company_id);
          $maincategorys=MainCategory::where('company_id','=',Auth()->user()->company_id);
@@ -193,24 +205,16 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $Product = Product::with('sales')->findOrFail($id);
+        $Product = Product::findOrFail($id);
 
-        if($Product['sales']->isEmpty()){
+        
             $Product->delete();
 
             $request->session()->flash('message.level', 'error');
             $request->session()->flash('message.content', 'Record deleted!');
 
-            return Redirect('product');
-        }
-        else{
-            $request->session()->flash('message.level', 'error');
-            $request->session()->flash('message.content', 'Product is refered in sale.');
-
-            return Redirect::back();
-        }
-
-        return Redirect('product');
+            return redirect('product');
+        
     }
 
     /**

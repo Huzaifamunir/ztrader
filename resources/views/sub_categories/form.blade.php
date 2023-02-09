@@ -42,6 +42,7 @@
       {!! Form::close() !!}
 
       @if($form['value']=='update')
+      
         <div class="input-field col s6 m6 l6">
           {{ Form::open(['method'=>'delete', 'route'=>['sub_category.destroy', $SubCategory['id']]]) }}
             {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }}

@@ -10,7 +10,7 @@
  </div>
 
 <div class="col s12 m12 l12">
-	<div class="col s12 m6 l4">
+	{{-- <div class="col s12 m6 l4">
 		<div class="menu-tab z-depth-4">
 			<a href="{{ route('country.index') }}">
 				<div align="center">
@@ -24,9 +24,9 @@
 				</div>
 			</a>
 		</div>
-	</div>
+	</div> --}}
 
-	<div class="col s12 m6 l4">
+	{{-- <div class="col s12 m6 l4">
 		<div class="menu-tab z-depth-4">
 			<a href="{{ route('state.index') }}">
 				<div align="center">
@@ -37,9 +37,9 @@
 				</div>
 			</a>
 		</div>
-	</div>
+	</div> --}}
 
-	<div class="col s12 m6 l4">
+	{{-- <div class="col s12 m6 l4">
 		<div class="menu-tab z-depth-4">
 			<a href="{{ route('city.index') }}">
 				<div align="center">
@@ -50,7 +50,7 @@
 				</div>
 			</a>
 		</div>
-	</div>
+	</div> --}}
 
 	<div class="col s12 m6 l4">
 		<div class="menu-tab z-depth-4">
@@ -59,7 +59,7 @@
 					<h2>
 						<span class="mdi mdi-script"></span>
 					</h2>
-					<h4 class="thin">Main Category</h4>
+					<h4 class="thin">Brands</h4>
 				</div>
 			</a>
 		</div>
@@ -72,7 +72,7 @@
 					<h2>
 						<span class="mdi mdi-script"></span>
 					</h2>
-					<h4 class="thin">Sub Category</h4>
+					<h4 class="thin">Products</h4>
 				</div>
 			</a>
 		</div>
@@ -85,7 +85,7 @@
 					<h2>
 						<span class="mdi mdi-script"></span>
 					</h2>
-					<h4 class="thin">Product</h4>
+					<h4 class="thin">Product_Lists</h4>
 				</div>
 			</a>
 		</div>

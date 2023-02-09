@@ -81,4 +81,8 @@ Route::group(['middleware' => ['auth']], function() {
      Route::resource('sale','App\Http\Controllers\SaleController');
      Route::resource('payment','App\Http\Controllers\paymentController');
 
+     Route::resource('user','App\Http\Controllers\UserController');
+     Route::resource('product','App\Http\Controllers\ProductController');
+     Route::resource('client','App\Http\Controllers\ClientController');
+
     });

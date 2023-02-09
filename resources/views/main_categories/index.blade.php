@@ -28,12 +28,12 @@
     @else
       <table class="highlight bordered">
         <caption>
-          <h3 class="thin">MainCategories</h3>
+          <h3 class="thin">Brands</h3>
         </caption>
         <thead>
           <tr>
-            <th>MainCategory</th>
-            <th>SubCategories</th>
+            <th>Brands</th>
+            <th>Products</th>
             <th>Action</th>
           </tr>
         </thead>

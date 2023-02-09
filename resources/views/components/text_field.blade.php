@@ -10,4 +10,3 @@
 {!! Form::text($field_name, null, ['class' => 'validate '.$field_class]) !!}
 {!! Form::label($field_name, $field_label, ['data-error' => $field_error, 'data-success' => 'seems ok..']) !!}
 
-{!! Form::hidden('company_id', $company_id, ['class' => 'validate '.'company_id']) !!}

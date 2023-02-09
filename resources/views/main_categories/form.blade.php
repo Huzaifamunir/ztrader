@@ -6,11 +6,12 @@
 
     @slot('form')
 
+
       @if($form['value']=='update')
         {!! Form::model($MainCategory, ['route' => ['main_category.update', $MainCategory['id']], 'method' => 'patch']) !!}
         @else
-        {!! Form::open(['url' => 'main_category/', 'method' => 'post']) !!}
-        <input type="hidden" value="{{ Auth()->user()->company_id }}" for="company_id" />
+        {!! Form::open(['route' => 'main_category.store', 'method' => 'post']) !!}
+        <input type="hidden" value="{{ Auth()->user()->company_id }}" name="company_id" for="company_id" />
       @endif
 
       @include('partials/_errors')

@@ -21,6 +21,17 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
+
+        if($request->ajax()){
+            // dd('good');
+            $Users=User::role('Client')->where('company_id','=', Auth::user()->company_id)->get();
+          
+           
+
+            return $Users;
+        }
+
         $roleName = Auth::user()->roles->pluck('name');
         if($roleName[0] == 'Client-Creat'){
             $data = User::where('region',Auth::user()->region)->get();

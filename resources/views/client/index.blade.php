@@ -152,9 +152,9 @@
                     <th hidden>No#</th>
                     <th style="padding-right:160px;">Client Name</th>
                     <th>Mobile #</th>
-                    <th>Current Balance</th>
                     <th>City</th>
                     <th>Address</th>
+                    <th>Current Balance</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -169,13 +169,13 @@
                     {{-- <td>{{ $Client['user']['person']['address'] }}</td> --}}
                     {{-- <td>{{ $Client->current_bal }}</td> --}}
                  @foreach ($client as $i )
-
+                <tr>
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->mobileno }}</td>
-                 <td>{{$i->start_bal}}</td>
                  <td>{{$i->city_id}}</td>
                  <td>{{$i->address}}</td>
+                 <td>{{$i->current_bal}}</td>
                  <td>
                     <a class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
@@ -187,6 +187,7 @@
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
                 </td>
+            </tr>
                  @endforeach
 
 

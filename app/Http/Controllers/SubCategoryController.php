@@ -30,8 +30,8 @@ class SubCategoryController extends Controller
             return $SubCategories;
         }
 
-         $SubCategories=SubCategory::orderBy('name','asc')->paginate(100);
-         $mainCategory=MainCategory::all();
+         $SubCategories=SubCategory::orderBy('name','asc')->where('company_id','=',Auth()->user()->company_id)->paginate(100);
+         $mainCategory=MainCategory::where('company_id','=',Auth()->user()->company_id)->get();
          return view("sub_categories/index", compact("SubCategories","mainCategory"));
     }
 
@@ -68,7 +68,11 @@ class SubCategoryController extends Controller
     {
         $this->validate($request, SubCategory::$rules);
 
-        $SubCategory=SubCategory::create($request->all());
+        $SubCategory=SubCategory::create([
+            'company_id'=> Auth()->user()->company_id,
+            'main_category_id' => $request->main_category_id,
+            'name'=> $request->name,
+        ]);
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'New Record Successfully Created !');
@@ -136,16 +140,16 @@ class SubCategoryController extends Controller
      * @param  \App\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        return redirect('ud');
+        // return redirect('ud');
         $SubCategory=SubCategory::findOrFail($id);
         $SubCategory->delete();
 
         $request->session()->flash('message.level', 'error');
         $request->session()->flash('message.content', 'Record deleted!');
 
-        return Redirect('sub_category');
+        return redirect('sub_category');
     }
 
     /**

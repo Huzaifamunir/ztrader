@@ -103,9 +103,9 @@ table.dataTable tbody td{
         </caption>
         <thead>
           <tr>
-              <th>Main Category</th>
+              <th>Brands</th>
+              <th>Products</th>
               <th>Model</th>
-              <th>SubCategory</th>
               <th>Purchase Price(Rs.)</th>
               <th>Sale Price(Rs.)</th>
               <th>Current Stock</th>
@@ -119,9 +119,11 @@ table.dataTable tbody td{
               <!--<th>-->
               <!--  <img src="{{ URL::asset('img/product/'.$Product['image']) }}" class="responsive-img materialboxed" data-caption="{{ $Product['name'] }}" style="height:100px;width:100px;">-->
               <!--</th>-->
-              <td>{{  \App\Models\MainCategory::where(['id' => $Product['sub_category_id']])->pluck('name')->first() }}</td>
+              <?php $sub=\App\Models\SubCategory::where(['id' => $Product['sub_category_id']])->first();?>
+              
+              <td>{{  \App\Models\MainCategory::where(['id' => $sub->main_category_id])->pluck('name')->first() }}</td>
+              <td>{{  $sub->name }}</td>
               <td>{{ $Product['model'] }}</td>
-              <td>{{  \App\Models\SubCategory::where(['id' => $Product['sub_category_id']])->pluck('name')->first() }}</td>
               <td>{{ $Product['purchase_price'] }}</td>
               <td>{{ $Product['sale_price'] }}</td>
               <td>{{ $Product['current_stock'] }}</td>

@@ -78,10 +78,13 @@
 
               <div class="input-field col s4">
                  <select selected name="city_id" required >
-                      <option selected>Choose </option>
-                      <option value="">A</option>
-                      <option value="">B</option>
-                      <option value="">C</option>
+                      <option selected>City </option>
+                      @foreach ($city as $item)
+
+                      <option value="">{{ $item->name }}</option>
+                        
+                      @endforeach
+                     
                  </select>
 
               </div>

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'current_bal',
         'company_id',
     ];
 
@@ -37,6 +38,12 @@ class User extends Authenticatable
     public function stock(){
     	return $this->hasMany('App\Models\Stock');
   	}
+
+      public function sale(){
+    	return $this->hasMany('App\Models\Sale');
+  	}
+
+    
 
     /**
      * The attributes that should be cast to native types.

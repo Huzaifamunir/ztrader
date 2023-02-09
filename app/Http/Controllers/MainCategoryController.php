@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MainCategory;
 use App\Models\SubCategory;
+use App\Models\User;
 
 class MainCategoryController extends Controller
 {
@@ -34,6 +35,7 @@ class MainCategoryController extends Controller
      */
     public function create()
     {
+       
         //
         $form=[
             "value" => "add",
@@ -41,7 +43,7 @@ class MainCategoryController extends Controller
             "submit" => "Save"
         ];
 
-        // $Users=User::all();
+        // $Users=User::where('company_id',Auth::user()->company_id)->get();
         // foreach($Users as $User){
         //     $Users_list[]=array('id'=>$User->id,'name'=>$User->person->first_name." ".$User->person->last_name);
         // }
@@ -58,6 +60,7 @@ class MainCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        
         //
         $this->validate($request, MainCategory::$rules);
 
@@ -80,7 +83,7 @@ class MainCategoryController extends Controller
     {
         //
         $MainCategory=MainCategory::find($id);
-        $sub_categories=SubCategory::all();
+        $sub_categories=SubCategory::where('company_id', Auth()->user()->company_id)->get();
 
         return view('main_categories/single',compact('MainCategory','sub_categories'));
     }
@@ -114,6 +117,7 @@ class MainCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($id);
         //
         $this->validate($request, MainCategory::$rules);
 
@@ -133,17 +137,17 @@ class MainCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
-        return redirect('ud');
+        // return redirect('ud');
         $MainCategory=MainCategory::findOrFail($id);
         $MainCategory->delete();
 
         $request->session()->flash('message.level', 'error');
         $request->session()->flash('message.content', 'Record deleted!');
 
-        return Redirect('main_category');
+        return redirect('main_category');
     }
 
      /**

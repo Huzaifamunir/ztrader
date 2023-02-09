@@ -12,7 +12,7 @@
            <span class="mdi mdi-arrow-left"></span>
          </a>
 
-         <a class="btn back-btn tooltipped" href="{{ route('client') }}" data-position="bottom" data-delay="200" data-tooltip="index">
+         <a class="btn back-btn tooltipped" href="{{ url('client') }}" data-position="bottom" data-delay="200" data-tooltip="index">
            <span class="mdi mdi-menu"></span>
          </a>
 

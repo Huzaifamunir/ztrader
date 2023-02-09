@@ -160,7 +160,7 @@
             </thead>
 
             <tbody>
-                {{-- @foreach ($Clients as $Client) --}}
+                {{-- @foreach ($Clients as $Client)
                     {{-- <td hidden>{{$i++}}</td> --}}
                     {{-- <td>{{ $Client['user']['person']['first_name']." ".$Client['user']['person']['last_name'] }}</td> --}}
                     {{-- <td>{{ $Client['user']['person']['land_line_no'] }}</td> --}}
@@ -168,6 +168,7 @@
                     {{-- <td>{{ $Client['user']['person']['city']['name'] }}</td> --}}
                     {{-- <td>{{ $Client['user']['person']['address'] }}</td> --}}
                     {{-- <td>{{ $Client->current_bal }}</td> --}}
+                     {{-- {{ dd($client) }} --}}
                  @foreach ($client as $i )
                  <td hidden></td>
                  <td>{{ $i->name }}</td>

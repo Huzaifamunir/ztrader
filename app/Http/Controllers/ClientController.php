@@ -2,32 +2,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\City;
 
 class ClientController extends Controller
 {
     //
      public function index(){
+      // dd('good');
 
         //  $id=Auth::user()->company_id;
         //  $client= User::where('company_id','=',$id)->where()->get();
          $client=User::role('Client')->where('company_id','=',Auth()->user()->company_id)->get();
+         
          return view('client.index',compact('client'));
 
         }
 
      public function client_create(){
 
-        return view('client.form');
+         $city = City::get();
+         $client = User::where('company_id', '=', Auth::user()->company_id)->get();
+         $product = Product::where('company_id', '=', Auth::user()->company_id)->get();
+
+        return view('client.form', compact('city','client', 'product'));
 
      }
 
     public function client_add(Request $request){
 
-         // dd(Auth::user()->role);
+         // dd($request->all());
+         
          // $rules = [
          //     'first_name' => ['required','string'],
          //     'last_name' => ['required','string'],
@@ -69,12 +78,19 @@ class ClientController extends Controller
         //  DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?)', [$role->id, 'App\Models\User',$client->id]);
 
          if($client->save()){
+            
+            
             $id=$client->id;
-            $role=Role::where('company_id','=',Auth()->user()->company_id)->where('name','=',$request->role)->first();
+            $role=Role::where('name','=',$request->role)->where('company_id',Auth()->user()->company_id)->first();
+            
             $db= DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?,?,?)', [$role->id,'App\Models\User',$id]);
-            return redirect()->back()->with('msg','Client Added Successfull');
+
+            $request->session()->flash('message.level', 'success');
+            $request->session()->flash('message.content', 'Client Successfully Created !');
+            $request->session()->flash('message.link', 'sale/'.$client->id);
+            return redirect('client');
          }else{
-            return redirect()->back()->with('error','Sorry Something Went Wrong, Try Again');
+            dd('not');
          }
      }
      public function client_single($id){

@@ -43,6 +43,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // $this->validate($request, [
         //     'name' => 'required|unique:permissions,name',
         // ]);
@@ -51,6 +52,7 @@ class CompanyController extends Controller
             'company_phoneno' => $request->input('company_phoneno'),
             'company_address' => $request->input('company_address'),
             'company_email' => $request->input('company_email'),
+            // 'company_password' => $request->input('company_password'),
          ]);
 
             $role = 'admin';
@@ -62,18 +64,20 @@ class CompanyController extends Controller
                  'password' => Hash::make($request->input('company_password')),
              ]);
 
-             $array=array("Client","Provider");
-             $user->assignRole($role);
-
+             
+             
+             
+             $array=array("Provider","Client","admin");
              // $user->assignRole($role_client);
              // $user->assignRole($role_provider);
 
              foreach($array as $i){
                   $role = Role::create([
                      'company_id' => $company->id,
-                     'name' => $i]);
+                     'name' => $i
+                    ]);
                 }
-
+                $user->assignRole($role);
      return redirect()->route('companies.index')
                         ->with('success','Company created successfully');
     }
@@ -152,7 +156,7 @@ class CompanyController extends Controller
         return ['message'=> 'company record updated successfully'];
 }
 public function deletetCompany($id){
-    $company =Company::find($id);
+    $company = Company::find($id);
     $company->delete();
     return ['message'=> 'company deleted successfully'];
 

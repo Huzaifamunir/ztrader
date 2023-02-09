@@ -33,13 +33,13 @@
       <table class="highlight bordered">
 
         <caption>
-          <h3 class="thin">SubCategories</h3>
+          <h3 class="thin">Products</h3>
         </caption>
 
         <thead>
           <tr>
-            <th>Sub Category</th>
-            <th>MainCategory</th>
+            <th>Products</th>
+            <th>Brands</th>
             <th>Action</th>
           </tr>
         </thead>
