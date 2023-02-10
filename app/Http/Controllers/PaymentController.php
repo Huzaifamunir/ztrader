@@ -11,7 +11,7 @@ use App\Models\Voucher;
 use App\Models\Payment;
 use App\Models\Bank;
 use Illuminate\Http\Request;
-use App\Core\HelperFunction;
+use App\core\HelperFunction;
 
 class PaymentController extends Controller
 {
