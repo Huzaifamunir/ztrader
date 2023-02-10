@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth']], function() {
      Route::resource('product','App\Http\Controllers\ProductController');
      Route::resource('stock','App\Http\Controllers\StockController');
      Route::resource('sale','App\Http\Controllers\SaleController');
-     Route::resource('payment','App\Http\Controllers\paymentController');
+     Route::resource('payment','App\Http\Controllers\PaymentController');
 
      Route::resource('user','App\Http\Controllers\UserController');
      Route::resource('product','App\Http\Controllers\ProductController');
