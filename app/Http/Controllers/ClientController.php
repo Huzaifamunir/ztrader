@@ -90,7 +90,7 @@ class ClientController extends Controller
             $request->session()->flash('message.link', 'sale/'.$client->id);
             return redirect('client');
          }else{
-            dd('not');
+            return redirect('client');
          }
      }
      public function client_single($id){
