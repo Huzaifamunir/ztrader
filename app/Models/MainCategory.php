@@ -19,7 +19,10 @@ class MainCategory extends Model
   ];
 
 
-    protected $fillable = [ 'name','company_id' ];
+    protected $fillable = [
+       'name',
+       'company_id'
+     ];
 
     public function subcategories()
     {

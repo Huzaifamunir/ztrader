@@ -18,7 +18,11 @@ class SubCategory extends Model
     'name' => ['required','string'],
   ];
 
-    protected $fillable = [ 'name', 'main_category_id','company_id' ];
+    protected $fillable = [ 
+      'name', 
+      'main_category_id',
+      'company_id' 
+    ];
 
 
     public function MainCategory()

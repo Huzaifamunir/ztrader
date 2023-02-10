@@ -32,12 +32,15 @@
             </h5>
             {!! Form::hidden('client_id',$payment['payer']['client']['id']) !!}
           @else
+          <div id="client_list_">
             <input type="text" list="users_list" name="client_id" v-model="payer_id">
             <label class="active">Client</label>
               
             <div>
               <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_client ]]</label>
             </div>
+
+          </div>
 
             <datalist id="users_list">
               @foreach($clients_list as $client)

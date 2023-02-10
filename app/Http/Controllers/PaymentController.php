@@ -10,7 +10,7 @@ use App\Models\Person;
 use App\Models\Voucher;
 use App\Models\Payment;
 use Illuminate\Http\Request;
-use  App\Core\HelperFunction;
+use App\Core\HelperFunction;
 
 class PaymentController extends Controller
 {
@@ -64,9 +64,24 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {   
-        $input = $request->all();
+        // dd($request->all());
 
-        $client = Client::find($input['client_id']);
+        $client = $request->client_id;
+        // dd($client);
+        $input = Payment::create([
+            'receiver_id' => $request->receiver_id,
+            // 'client_id' => $request->client_id,
+            'transaction_mode' => $request->transaction_mode,
+            'amount' => $request->amount,
+            'remarks' => $request->remarks,
+            'company_id' => Auth::user()->company_id,
+            'payer_id' => $request->payer_id,
+        ]);
+
+        // dd($input);
+
+        $client = User::find($request->client_id);
+        // dd($client);
         $user = $client->user;
         
         // Client current balance update

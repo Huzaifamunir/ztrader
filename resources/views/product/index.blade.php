@@ -121,6 +121,7 @@ table.dataTable tbody td{
               <!--</th>-->
               <?php $sub=\App\Models\SubCategory::where(['id' => $Product['sub_category_id']])->first();?>
               
+              
               <td>{{  \App\Models\MainCategory::where(['id' => $sub->main_category_id])->pluck('name')->first() }}</td>
               <td>{{  $sub->name }}</td>
               <td>{{ $Product['model'] }}</td>
