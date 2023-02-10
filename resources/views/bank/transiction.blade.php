@@ -8,7 +8,7 @@
 
     <form action="{{route('Add_Transiction')}}" method="POST" enctype="multipart/form-data">
         @csrf
-          <input type=""  name="bank_id" hidden="">
+          <input type="hidden"  name="bank_id" value="{{ $id->bank_id }}">
             <div class="row">
              <div class="col">
               <label>Date</label>

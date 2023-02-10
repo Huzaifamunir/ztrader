@@ -115,17 +115,21 @@ class BankController extends Controller
     }
 
 
-    public function transiction()
+    public function transiction($id)
     {
-        // dd('good');
+        // dd($id)
 
-        return view('bank.transiction');
+        $id = Bank::where('bank_id', $id)->first();
+
+        // dd($id);
+
+        return view('bank.transiction', compact('id'));
     }
 
 
     public function Add_Transiction(Request $request)
     {
-        // dd('good');
+       
         
         $Add_Transiction =new Transiction;
         $Add_Transiction->bank_id = $request->bank_id;
