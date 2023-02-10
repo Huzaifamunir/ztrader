@@ -107,6 +107,8 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+     
         $update_rules=Country::$rules;
         $update_rules['name']='required|string|unique:countries,name,'.$id;
         $this->validate($request, $update_rules);

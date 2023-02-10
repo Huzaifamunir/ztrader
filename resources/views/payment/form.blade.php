@@ -16,6 +16,8 @@
 
         {!! Form::hidden('receiver_id', Auth::User()->id) !!}
 
+        {!! Form::hidden('company_id', Auth::User()->company_id) !!}
+
         <!-- <div class="input-field col s6 m6 l6">
           <select>
             <option value="Client">Client</option>
@@ -27,7 +29,7 @@
         <div id="app" class="input-field col s6">
           @if($form['value']=='update')
             <h5>
-              {{ $payment['payer']['person']['first_name'].' '.$payment['payer']['person']['last_name'] }} -
+              {{ $payment['payer'].' '.$payment['payer']['person']['last_name'] }} -
               {{ $payment['payer']['client']['current_bal'] }}
             </h5>
             {!! Form::hidden('client_id',$payment['payer']['client']['id']) !!}
@@ -44,9 +46,10 @@
 
             <datalist id="users_list">
               @foreach($clients_list as $client)
-                <option value="{{ $client['id'] }}" id="client_list_{{ $client['id'] }}">
-                  {{ $client['user']['person']['first_name'].' '.$client['user']['person']['last_name'] }}
-                  {{ $client['current_bal'] }}
+              
+                <option value="{{ $client->id }}" id="client_list_{{ $client->id }}">
+                  {{ $client->name }}
+                  {{ $client->current_bal }}
                 </option>
               @endforeach
             </datalist>
@@ -60,6 +63,9 @@
 
         <div class="input-field col s3">
           <select name="transaction_mode" id="payment_type">
+            @foreach ($banks as $bank)
+            <option value="{{ $bank->bank_id }}">{{ $bank->bank_name }}</option>
+            @endforeach
             <option value="Cash">Cash</option>
             <!-- <option value="Cheque">Cheque</option> -->
             <option value="Bank">Bank</option>

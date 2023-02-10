@@ -45,6 +45,25 @@ Route::group(['middleware' => ['auth']], function() {
          return view('menu');
      })->name('menu');
 
+     Route::get('profile/{id}', [App\Http\Controllers\ProfileController::class, 'profile'])->name('profile');
+
+     Route::post('editprofile', [App\Http\Controllers\ProfileController::class, 'editprofile'])->name('editprofile');
+
+
+
+    //  Bank Routes
+    Route::get('show_bank',[App\Http\Controllers\BankController::class,'show_bank'])->name('show_bank');
+    Route::post('Add_bank',[App\Http\Controllers\BankController::class,'Add_bank'])->name('Add_bank');
+
+    //route for transiction
+    //  Route::get('Show_Transiction_Form',[App\Http\Controllers\BankController::class,'Show_Transiction_Form'])->name('Show_Transiction_Form');
+  
+
+    //  Transiction Routes
+     Route::get('transiction/{id}', [App\Http\Controllers\BankController::class, 'transiction'])->name('transiction');
+     Route::post('Add_Transiction',[App\Http\Controllers\BankController::class,'Add_Transiction'])->name('Add_Transiction');
+
+
      /* Client routes  */
      Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
      Route::get('/client_create', [App\Http\Controllers\ClientController::class, 'client_create'])->name('client_create');
@@ -84,5 +103,8 @@ Route::group(['middleware' => ['auth']], function() {
      Route::resource('user','App\Http\Controllers\UserController');
      Route::resource('product','App\Http\Controllers\ProductController');
      Route::resource('client','App\Http\Controllers\ClientController');
+     Route::resource('bank','App\Http\Controllers\BankController');
+    //  Route::resource('transition','App\Http\Controllers\BankController');
+    
 
     });

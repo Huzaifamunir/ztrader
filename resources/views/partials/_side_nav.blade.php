@@ -79,6 +79,21 @@
                         </a>
                     </td>
                   </tr>
+
+                  <tr class="spaceUnder">
+                    <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Sale Index">
+                        <a href="{{route('show_bank')}}">
+                            <span class="mdi mdi-script font-dark">
+                               <span>Add Bank</span>
+                            </span>
+                        </a>
+                    </td>
+                    <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
+                        <a href="{{route('show_bank')}}">
+                            <span class="mdi mdi-plus-circle-outline font-dark"></span>
+                        </a>
+                    </td>
+                  </tr>
                   @endif
                   @role('admin')
              <tr class="spaceUnder">

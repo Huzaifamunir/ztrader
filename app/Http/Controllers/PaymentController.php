@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Person;
 use App\Models\Voucher;
 use App\Models\Payment;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 use App\Core\HelperFunction;
 
@@ -34,6 +35,8 @@ class PaymentController extends Controller
         // }
         $i=1;
         $Payments = Payment::orderBy('updated_at','desc')->get();
+
+        // $bank = Bank::where('bank_name', )->get();
         
         return view("payment/index", compact("Payments","i"));
     }
@@ -50,10 +53,11 @@ class PaymentController extends Controller
             "name" => "Add Payment",
             "submit" => "Save"
         ];
+        $banks=Bank::all();
+        
+        $clients_list = User::role('Client')->where('company_id', '=', Auth::user()->company_id)->get();        
 
-        $clients_list = Client::where('company_id', '=', Auth::user()->company_id)->get();        
-
-        return view('payment/form',compact('form','clients_list'));
+        return view('payment/form',compact('form','clients_list','banks'));
     }
 
     /**
@@ -68,24 +72,33 @@ class PaymentController extends Controller
 
         $client = $request->client_id;
         // dd($client);
-        $input = Payment::create([
-            'receiver_id' => $request->receiver_id,
-            // 'client_id' => $request->client_id,
-            'transaction_mode' => $request->transaction_mode,
-            'amount' => $request->amount,
-            'remarks' => $request->remarks,
-            'company_id' => Auth::user()->company_id,
-            'payer_id' => $request->payer_id,
-        ]);
+
+        $input = $request->all();
+
+        // $input = Payment::create([
+        //     'receiver_id' => $request->receiver_id,
+        //     'payer_id' => $request->client_id,
+        //     'transaction_mode' => $request->transaction_mode,
+        //     'amount' => $request->amount,
+        //     'remarks' => $request->remarks,
+        //     'company_id' => Auth::user()->company_id,
+        //     'payer_id' => $request->payer_id,
+        // ]);
 
         // dd($input);
 
         $client = User::find($request->client_id);
+
         // dd($client);
-        $user = $client->user;
+
+        $user = $client->id;
+
+        // dd($user);
+
         
         // Client current balance update
         if($client['current_bal']<$input['amount']){
+
             $request->session()->flash('message.level', 'error');
             $request->session()->flash('message.content', 'You cannot pay more than '.$client['current_bal']);
 
@@ -93,18 +106,20 @@ class PaymentController extends Controller
         }
 
         $new_bal = $client['current_bal']-$input['amount'];
+
+        // dd($new_bal);
        
         $client->update(['current_bal' => $new_bal]);
         
-        $input['payer_id'] = $user['id'];
+        // $input['payer_id'] = $user['id'];
         
         $Payment = Payment::create($input);
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'New Record Successfully Created !');
         $request->session()->flash('message.link', 'payment/'.$Payment->id);
-        $cli=Client::where('id',$input['client_id'])->first();
-        $user=Person::where('id',$cli->user_id)->first();
+        $cli=User::where('id',$input['client_id'])->first();
+        $user=User::where('id',$cli->id)->first();
         
         $number=$user->mobile_no;
       $message="Dear ".$user->first_name.",\nWe Have Received: ".$input['amount']."Rs\nNew Balance:".$new_bal."Rs\nFrom: ZR Erorex\nThanks";

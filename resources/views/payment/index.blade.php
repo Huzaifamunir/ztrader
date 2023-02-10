@@ -107,6 +107,7 @@ table.dataTable tbody td{
         </thead>
 
         <tbody>
+          {{-- {{ dd($Payments) }} --}}
           @foreach($Payments as $Payment)
             <tr>
                 <td hidden>{{ $i++}}</td>
@@ -119,11 +120,11 @@ table.dataTable tbody td{
               </td>
 
               <td>
-                {{ $Payment['receiver']['person']['first_name']." ".$Payment['receiver']['person']['last_name'] }}
+                {{ $Payment['receiver']." ".$Payment['receiver'] }}
               </td>
 
               <td>
-                {{ $Payment['payer']['person']['first_name']." ".$Payment['payer']['person']['last_name'] }}
+                {{ $Payment['payer']." ".$Payment['payer']}}
               </td>
               
               @if($Payment['transaction_mode']=="Bank")

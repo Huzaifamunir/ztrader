@@ -16,7 +16,6 @@
       <link rel="stylesheet" href="{{ URL::asset('public/css/materialdesignicons.min.css') }}" />
       <link rel="stylesheet" href="{{ URL::asset('public/css/custom.css') }}" />
       <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
-    </head>
 <style>
     table.dataTable {
     width: 100% !important;
@@ -69,7 +68,7 @@
 
               @else
                 <li class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Profile Settings">
-                  <a href="/profile">
+                  <a href="{{ route('profile', Auth::user()->id) }}">
                     <span class="mdi mdi-account" style="font-size:18px;">
                       {{ Auth::user()->name }}
                     </span>
@@ -218,6 +217,7 @@
             });
           }
         </script>
+        
         <!-- For page wise scripts -->
         @yield('page_scripts')
     </body>
