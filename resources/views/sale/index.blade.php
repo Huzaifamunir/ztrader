@@ -98,13 +98,13 @@ table.dataTable tbody td{
         <thead>
           <tr>
               <th hidden>No#</th>
-            <th>Date</th>
-            <th>Bill #</th>
-            <th>Client</th>
-            <th>Seller</th>
-            <!-- <th>Total Items</th> -->
-            <th>Total Amount</th>
-            <th>Action</th>
+            <th style="padding-right: 10px;">Date</th>
+            <th style="padding-right: 10px;">Bill #</th>
+            <th style="padding-right: 120px;">Client</th>
+            <th style="padding-right: 10px;">Seller</th>
+            
+            <th style="padding-right: 10px;">Total Amount</th>
+            <th style="padding-right: 10px;">Action</th>
           </tr>
         </thead>
             @php Carbon\Carbon::setLocale('de') @endphp

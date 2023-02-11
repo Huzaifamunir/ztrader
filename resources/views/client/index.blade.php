@@ -159,7 +159,7 @@
                     <th style="width:50%;">Action</th>
                 </tr>
             </thead>
-{{ $k=0 }}
+{{-- {{ $k=0 }} --}}
             <tbody>
                 {{-- @foreach ($Clients as $Client) --}}
                     {{-- <td hidden>{{$i++}}</td> --}}
