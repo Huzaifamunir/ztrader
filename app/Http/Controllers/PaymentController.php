@@ -36,9 +36,12 @@ class PaymentController extends Controller
         $i=1;
         $Payments = Payment::orderBy('updated_at','desc')->get();
 
-        // $bank = Bank::where('bank_name', )->get();
+        $clients_name = User::role('Client')->where('company_id', '=', Auth::user()->company_id)->first();      
+
+
         
-        return view("payment/index", compact("Payments","i"));
+        
+        return view("payment/index", compact("Payments","i", "clients_name",));
     }
 
     /**
@@ -74,7 +77,7 @@ class PaymentController extends Controller
         // dd($client);
 
         $input = $request->all();
-
+        // dd($input);
         // $input = Payment::create([
         //     'receiver_id' => $request->receiver_id,
         //     'payer_id' => $request->client_id,
@@ -90,6 +93,9 @@ class PaymentController extends Controller
         $client = User::find($request->client_id);
 
         // dd($client);
+
+        // dd($input['payer_id']);
+
 
         $user = $client->id;
 
@@ -110,6 +116,7 @@ class PaymentController extends Controller
         // dd($new_bal);
        
         $client->update(['current_bal' => $new_bal]);
+
         
         // $input['payer_id'] = $user['id'];
         

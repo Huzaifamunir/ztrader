@@ -95,7 +95,7 @@ table.dataTable tbody td{
         </caption>
         <thead>
           <tr>
-              <th hidden>No#</th>
+             
             <th>Date</th>
             <th>Payment #</th>
             <th>Received By</th>
@@ -109,8 +109,9 @@ table.dataTable tbody td{
         <tbody>
           {{-- {{ dd($Payments) }} --}}
           @foreach($Payments as $Payment)
+          {{-- {{ dd($Payment) }} --}}
             <tr>
-                <td hidden>{{ $i++}}</td>
+               
               <td>
                 {{ $Payment['created_at']->format('d-M-Y') }}
               </td>
@@ -120,12 +121,17 @@ table.dataTable tbody td{
               </td>
 
               <td>
-                {{ $Payment['receiver']." ".$Payment['receiver'] }}
+                <?php $get_name=\App\Models\User::where(['company_id' => $Payment->company_id])->first();?>
+
+                {{ $get_name->name }}
               </td>
 
+
               <td>
-                {{ $Payment['payer']." ".$Payment['payer']}}
+                {{ $clients_name->name}}
               </td>
+
+
               
               @if($Payment['transaction_mode']=="Bank")
                 <td>
@@ -133,7 +139,11 @@ table.dataTable tbody td{
                   &#40;{{ $Payment['remarks'] }}&#41;
                 </td>
               @else
-                <td>{{ $Payment['transaction_mode'] }}</td>
+
+              {{-- {{ dd($Payment->transaction_mode) }} --}}
+
+              <?php $get_bank=\App\Models\Bank::where(['bank_id' => $Payment->transaction_mode])->first();?>
+                <td>{{ $get_bank->bank_name }}</td>
               @endif
 
               <td>

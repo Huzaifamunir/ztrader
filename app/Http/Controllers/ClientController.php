@@ -73,7 +73,7 @@ class ClientController extends Controller
          $client->mobileno=$request->mobile_no;
          $client->city_id=$request->city_id;
          $client->address=$request->address;
-        //  $client->assignRole($request->role);
+         $client->assignRole($request->role);
 
         //  $role=Role::where('company_id','=',Auth()->user()->company_id)->where('name','=','Client')->first();
         //  DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?)', [$role->id, 'App\Models\User',$client->id]);
@@ -90,10 +90,19 @@ class ClientController extends Controller
             $request->session()->flash('message.content', 'Client Successfully Created !');
             $request->session()->flash('message.link', 'sale/'.$client->id);
             // dd('client');
+            if($request->role=='Client')
+            {
             return redirect('client');
+            }else{
+               return redirect('provider');
+            }
          }else{
-            // dd('provider');
-            return redirect('provider');
+            if($request->role=='Client')
+            {
+            return redirect('client');
+            }else{
+               return redirect('provider');
+            }
          }
      }
      public function client_single($id){

@@ -17,6 +17,7 @@ class StockController extends Controller
 {
      public function user_list(){
          $users=User::role('Provider')->where('company_id','=',Auth()->user()->company_id)->get();
+      
          return $users;
          }
 
@@ -59,6 +60,7 @@ class StockController extends Controller
      */
     public function create()
     {
+        
         $form=[
             "value" => "add",
             "name" => "Add Stock",

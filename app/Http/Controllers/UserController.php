@@ -24,6 +24,7 @@ class UserController extends Controller
 
 
         if($request->ajax()){
+            
             // dd('good');
             $Users=User::role('Client')->where('company_id','=', Auth::user()->company_id)->get();
           

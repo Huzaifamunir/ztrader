@@ -44,7 +44,7 @@ class ProviderController extends Controller
      }
 
      public function provider_update(Request $request){
-
+      
       // dd($request->all());
         $client=User::find($request->id);
         $client->name=$request->first_name.'.'.$request->last_name;
@@ -61,7 +61,7 @@ class ProviderController extends Controller
         $client->mobileno=$request->mobile_no;
         $client->city_id=$request->city_id;
         $client->address=$request->address;
-       //  $client->assignRole($request->role);
+        $client->assignRole($request->role);
 
        //  $role=Role::where('company_id','=',Auth()->user()->company_id)->where('name','=','Client')->first();
        //  DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?)', [$role->id, 'App\Models\User',$client->id]);
@@ -69,6 +69,7 @@ class ProviderController extends Controller
         if($client->save()){
            return redirect('provider')->with('msg','Client updated Successfull');
         }else{
+         dd('f');
            return redirect('provider')->with('error','Sorry Something Went Wrong, Try Again');
         }
      }

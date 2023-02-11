@@ -95,10 +95,11 @@ class SubCategoryController extends Controller
      */
     public function show($id)
     {
-        // dd('good');
+        
         $SubCategory=SubCategory::find($id);
 
-        $Products = Product::where('company_id','=', Auth::user()->company_id)->get();
+        $Products = Product::where('sub_category_id',$id)->where('company_id','=', Auth::user()->company_id)->get();
+        
 
         // dd($Product);
 
