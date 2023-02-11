@@ -57,19 +57,19 @@
           @endcomponent
         </div>
 
-        <div class="input-field col s6 m3 l3">
+        <div class="input-field col s8 m3 13">
           @component('components.text_field', ['field_name'=>'purchase_price','field_label'=>'Purchase Price'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
         </div>
 
-        <div class="input-field col s6 m3 l3">
+        <div class="input-field col s8 m3 13">
           @component('components.text_field', ['field_name'=>'sale_price','field_label'=>'Sale Price'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
         </div>
 
-        <div class="input-field col s12 m3 l3">
+        <div class="input-field col s12 m6 16">
           @component('components.text_field', ['field_name'=>'current_stock','field_label'=>'Current Stock'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
