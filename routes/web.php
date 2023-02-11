@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth']], function() {
      Route::get('/provider_single/{id}', [App\Http\Controllers\ProviderController::class, 'provider_single'])->name('provider_single');
      Route::get('/provider_edit/{id}', [App\Http\Controllers\ProviderController::class, 'provider_edit'])->name('provider_edit');
      Route::post('/provider_update', [App\Http\Controllers\ProviderController::class, 'provider_update'])->name('provider_update');
-     Route::post('/provider_delete/{id}', [App\Http\Controllers\ProviderController::class, 'provider_delete'])->name('provider_delete');
+     Route::get('/provider_delete/{id}', [App\Http\Controllers\ProviderController::class, 'provider_delete'])->name('provider_delete');
 
      Route::get('/getsubcategories', [App\Http\Controllers\ProductController::class, 'getsubcategories'])->name('getsubcategories');
 

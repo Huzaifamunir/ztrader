@@ -33,7 +33,8 @@ class ClientController extends Controller
 
      }
 
-    public function client_add(Request $request){
+    public function client_add(Request $request)
+    {
 
          // dd($request->all());
          
@@ -88,9 +89,11 @@ class ClientController extends Controller
             $request->session()->flash('message.level', 'success');
             $request->session()->flash('message.content', 'Client Successfully Created !');
             $request->session()->flash('message.link', 'sale/'.$client->id);
+            // dd('client');
             return redirect('client');
          }else{
-            return redirect('client');
+            // dd('provider');
+            return redirect('provider');
          }
      }
      public function client_single($id){
@@ -100,7 +103,8 @@ class ClientController extends Controller
      public function client_edit($id){
 
            $client=User::find($id);
-           return view('client.edit',compact('client'));
+           $city = City::all();
+           return view('client.edit',compact('client','city'));
      }
 
      public function client_update(Request $request){
@@ -122,9 +126,9 @@ class ClientController extends Controller
         $client->address=$request->address;
 
         if($client->save()){
-           return redirect()->back()->with('msg','Client updated Successfull');
+           return redirect('client')->with('msg','Client updated Successfull');
         }else{
-           return redirect()->back()->with('error','Sorry Something Went Wrong, Try Again');
+           return redirect('client')->with('error','Sorry Something Went Wrong, Try Again');
         }
      }
 }

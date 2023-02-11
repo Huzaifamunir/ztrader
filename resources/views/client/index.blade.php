@@ -150,12 +150,13 @@
             <thead>
                 <tr>
                     <th hidden>No#</th>
-                    <th style="padding-right:160px;">Client Name</th>
-                    <th>Mobile #</th>
-                    <th>City</th>
-                    <th>Address</th>
-                    <th>Current Balance</th>
-                    <th>Action</th>
+                    <th style="width:25%;">Client Name</th>
+                    <th style="width:10%;">Mobile #</th>
+                    <th style="width:12%;">Email</th>
+                    <th style="width:10%;">City</th>
+                    <th style="width:20%;">Address</th>
+                    <th style="width:15%;">Current Balance</th>
+                    <th style="width:50%;">Action</th>
                 </tr>
             </thead>
 {{ $k=0 }}
@@ -173,6 +174,7 @@
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->mobileno }}</td>
+                 <td>{{ $i->email }}</td>
                  <td>{{$i->city_id}}</td>
                  <td>{{$i->address}}</td>
                  <td>{{$i->current_bal}}</td>

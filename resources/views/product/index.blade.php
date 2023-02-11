@@ -103,13 +103,13 @@ table.dataTable tbody td{
         </caption>
         <thead>
           <tr>
-              <th>Brands</th>
-              <th>Products</th>
-              <th>Model</th>
-              <th>Purchase Price(Rs.)</th>
-              <th>Sale Price(Rs.)</th>
-              <th>Current Stock</th>
-              <th>Action</th>
+              <th  style="width:150px">Brands</th>
+              <th style="width:150px">Products</th>
+              <th  style="width:25%;">Model</th>
+              <th style="width:150px;">Purchase Price(Rs.)</th>
+              <th style="width:150px;">Sale Price(Rs.)</th>
+              <th style="width:150px;">Current Stock</th>
+              <th >Action</th>
           </tr>
         </thead>
 

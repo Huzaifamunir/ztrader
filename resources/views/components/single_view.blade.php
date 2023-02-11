@@ -15,7 +15,15 @@
         @if(isset($icon))
           <span class="mdi mdi-{{ $icon }}"></span>
         @endif
+        @if($entity=='main_category')
+          Brands
+        @elseif($entity=='sub_category')
+
+        Product
+        
+        @else
         {{ $entity }}
+        @endif
       </h3>
     </caption>
 
@@ -28,7 +36,9 @@
           <a class="btn edit-btn" href="{{ route($entity.'.edit', [$id]) }}">
             <span class="mdi mdi-pen"></span> Edit
           </a>
+
         </th>
+        
 
       </tr>
     </tbody>

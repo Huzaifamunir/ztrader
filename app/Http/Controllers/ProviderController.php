@@ -16,6 +16,8 @@ class ProviderController extends Controller
         // $id=Auth::user()->company_id;
         // $client= User::where('identify','=','client')->where('company_id','=',$id)->get();
         $client=User::role('Provider')->where('company_id','=', Auth::user()->company_id)->get();
+
+      //   dd($client);
         
         return view('provider.index',compact('client'));
 
@@ -23,22 +25,27 @@ class ProviderController extends Controller
 
      public function provider_create(){
 
+      // dd('good');
        $city = City::all();
        return view('provider.form', compact('city'));
      }
 
      public function provider_single($id){
+      // dd('good');
         $provider=User::where('id','=',$id)->first();
         return view('provider.single',compact('provider'));
      }
 
      public function provider_edit($id){
           $provider=User::find($id);
-          return view('provider.edit',compact('provider'));
+       $city = City::all();
+
+          return view('provider.edit',compact('provider','city'));
      }
 
      public function provider_update(Request $request){
 
+      // dd($request->all());
         $client=User::find($request->id);
         $client->name=$request->first_name.'.'.$request->last_name;
 
@@ -60,9 +67,9 @@ class ProviderController extends Controller
        //  DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?)', [$role->id, 'App\Models\User',$client->id]);
 
         if($client->save()){
-           return redirect()->back()->with('msg','Client updated Successfull');
+           return redirect('provider')->with('msg','Client updated Successfull');
         }else{
-           return redirect()->back()->with('error','Sorry Something Went Wrong, Try Again');
+           return redirect('provider')->with('error','Sorry Something Went Wrong, Try Again');
         }
      }
 

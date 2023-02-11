@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\SubCategory;
 use App\Models\MainCategory;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class SubCategoryController extends Controller
 {
@@ -53,7 +55,7 @@ class SubCategoryController extends Controller
         //     $Users_list[]=array('id'=>$User->id,'name'=>$User->person->first_name." ".$User->person->last_name);
         // }
         // $Users_list=collect($Users_list);
-         $mainCategory=MainCategory::all();
+         $mainCategory=MainCategory::where('company_id', Auth::user()->company_id);
 
         return view('sub_categories/form',compact('form','mainCategory'));
     }
@@ -66,13 +68,17 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
+  
+        
         $this->validate($request, SubCategory::$rules);
 
         $SubCategory=SubCategory::create([
             'company_id'=> Auth()->user()->company_id,
-            'main_category_id' => $request->main_category_id,
+            'main_category_id' => $request->maian_category_id,
             'name'=> $request->name,
         ]);
+
+        // dd($SubCategory);
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'New Record Successfully Created !');
@@ -89,9 +95,14 @@ class SubCategoryController extends Controller
      */
     public function show($id)
     {
+        // dd('good');
         $SubCategory=SubCategory::find($id);
 
-        return view('sub_categories/single')->with(['SubCategory'=>$SubCategory]);
+        $Products = Product::where('company_id','=', Auth::user()->company_id)->get();
+
+        // dd($Product);
+
+        return view('sub_categories/single',compact('Products'))->with(['SubCategory'=>$SubCategory]);
     }
 
     /**

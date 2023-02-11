@@ -82,17 +82,26 @@
                 <label for="mobile_no" >Mobile #</label>
               </div>
 
-              <div class="input-field col s4">
-                 <select selected name="city_id" required >
-                      <option selected>Choose </option>
-                      <option value="">A</option>
-                      <option value="">B</option>
-                      <option value="">C</option>
-                 </select>
+              <div class="input-field col s6">
+                <input type="text" name="email" value="{{ $client->email }}" required/>
+                <label for="email" >Email</label>
+              </div>
+
+              <div class="input-field col s6">
+                <select selected name="city_id" required >
+                  <option selected>City </option>
+
+                  @foreach ($city as $item)
+
+                  <option value="">{{ $item->name }}</option>
+
+                    
+                  @endforeach
+             </select>
 
               </div>
 
-              <div class="input-field col s8">
+              <div class="input-field col s6">
                 <input type="text" name="address" value="{{ $client->address }}" required/>
                 <label for="Address" >Address</label>
               </div>

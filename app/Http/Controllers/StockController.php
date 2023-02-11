@@ -201,14 +201,15 @@ class StockController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
-    {   return redirect('ud');
+    {   
+        // return redirect('ud');
         $Stock=Stock::findOrFail($id);
         $Stock->delete();
 
         $request->session()->flash('message.level', 'error');
         $request->session()->flash('message.content', 'Record deleted!');
 
-        return Redirect('stock');
+        return redirect('stock');
     }
 
     /**

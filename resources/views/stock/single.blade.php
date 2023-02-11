@@ -13,6 +13,8 @@
     <span class="mdi mdi-menu"></span>
   </a>
 
+  <a href="#"><button class="btn btn-primary">Print</button></a>
+
   @if($Stock==NULL)
     <center>
       <h3 class="thin">No Record Found !</h3>
@@ -41,6 +43,13 @@
                 {{ $get_provider[0] }} {{ $get_provider[1] }}
           </td>
         </tr>
+        <tr>
+          <th >Company</th>
+          <td >
+            <?php $get_provider=\App\Models\User::where(['id' => $Stock->provider_id])->first();?>
+                {{ $get_provider->company_name }}
+          </td>
+        </tr>
         <!-- <tr>
           <th>Total Items</th>
           <td>{{ $Stock->total_sets }}</td>
@@ -51,18 +60,24 @@
         </tr> -->
 
         <tr class="table-head">
-          <th>Sr #</th>
-          <th>Product</th>
-          <th>Model</th>
-          <th>Sale Price/Unit</th>
-          <th>Quantity</th>
-          <th>Sub Total</th>
+          <th style="width:100px;">Sr #</th>
+          <th style="width:100px;"> Product</th>
+          <th style="width:200px;">Model</th>
+          <th style="width:100px;">Sale Price/Unit</th>
+          <th style="width:100px;">Quantity</th>
+          <th style="width:100px;">Sub Total</th>
         </tr>
 
         @foreach($Stock->items as $item)
+        
+        <?php $get_product=\App\Models\Product::where(['id' => $item->product_id])->first();
+                    $get_sub=\App\Models\SubCategory::where(['id' => $get_product->sub_category_id])->first()
+                ?>
+
+               
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $item['product']['name'] }}</td>
+            <td>{{ $get_sub->name }}</td>
             <td>{{ $item['product']['model'] }}</td>
             <td>{{ $item['price_per_unit'] }}</td>
             <td>{{ $item['quantity'] }}</td>

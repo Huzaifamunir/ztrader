@@ -16,7 +16,7 @@
 
          <div class="input-field col s12 m6 l3">
           <input type="text" list="main_category_list" name="main_category_id" v-model="main_category_id" v-on:focusout="get_sub_categories">
-          <label class="active">Main Category</label>
+          <label class="active">Brands</label>
 
           <div>
             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[ selected_main_category ]]</label>
@@ -30,7 +30,7 @@
 
         <div class="input-field col s12 m5 l3">
           <input type="text" list="sub_category_list" name="sub_category_id" v-model="sub_category_id">
-          <label class="active">Sub Category</label>
+          <label class="active">Product</label>
 
           <div>
             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[ selected_sub_category ]]</label>

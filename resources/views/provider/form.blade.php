@@ -72,6 +72,18 @@
               </div>
 
               <div class="input-field col s4">
+                <input type="text" name="company_name" required />
+                <label for="Company_name" >Company NAme</label>
+              </div>
+
+              <div class="input-field col s6">
+
+                <input type="text" name="mobile_no"  required/>
+                <label for="mobile_no" >Mobile #</label>
+
+              </div>
+
+              <div class="input-field col s6">
 
                 <select selected name="city_id" required >
                      <option selected>City </option>
@@ -84,33 +96,22 @@
                      @endforeach
                 </select>
 
-             </div>
-
-
-              <div class="input-field col s6">
-
-                <input type="text" name="mobile_no"  required/>
-                <label for="mobile_no" >Mobile #</label>
-
               </div>
 
 
-              <div class="input-field col s6">
+              <div class="input-field col s12">
 
                 <input type="text" name="address" required/>
                  <label for="Address" >Address</label>
 
                 </div>
 
-              <div class="input-field col s8">
+              {{-- <div class="input-field col s8">
                 <input type="text" name="comment" required />
                 <label for="opening_balance" >Comment</label>
-            </div>
+              </div> --}}
 
-            <div class="input-field col s4">
-                <input type="text" name="company_name" required />
-                <label for="Company_name" >Company NAme</label>
-            </div>
+          
 
               <div class="input-field col s6 m6 l6">
                   <button type="submit" class="btn" style="background:green;margin-bottom:2%;">Submit</button>

@@ -17,11 +17,11 @@
 
         <div class="input-field col s12 m6 l6" id="app">
 
-          <input type="text" list="main_category_list" name="main_category_id" v-model="main_category_id">
+          <input type="text" list="main_category_list" name="maian_category_id" v-model="main_category_id">
 
-          <label class="active">Select Main Category</label>
+          <label class="active">Select Brand</label>
           <div>
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_main_category ]]</label>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_Brand ]]</label>
           </div>
 
           <datalist id="main_category_list">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="input-field col s12 m6 l6">
-          @component('components.text_field', ['field_name'=>'name','field_label'=>'Sub Category'
+          @component('components.text_field', ['field_name'=>'name','field_label'=>'Product'
           ,'company_id' => Auth()->user()->company_id])
           @endcomponent
         </div>

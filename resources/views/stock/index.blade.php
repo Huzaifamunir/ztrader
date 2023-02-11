@@ -33,6 +33,7 @@
           <tr>
             <th>Buyer</th>
             <th>Provider</th>
+            <th>Company Name</th>
             <th>Total Amount</th>
             <th>Action</th>
           </tr>
@@ -40,6 +41,7 @@
 
         <tbody>
           @foreach($Stocks as $Stock)
+          {{-- {{ dd($Stock) }} --}}
             <tr>
               <td>
 
@@ -51,6 +53,12 @@
                 ?>
                 {{ $get_provider[0] }} {{ $get_provider[1] }}
               </td>
+
+                <td >
+                  <?php $get_provider=\App\Models\User::where(['id' => $Stock->provider_id])->first();?>
+                      {{ $get_provider->company_name }}
+                </td>
+
               <td>{{ $Stock->total_amount }}</td>
               <td>
                 <a class="action-btn edit-btn" href="{{ route('stock.edit', [ $Stock['id']]) }}">

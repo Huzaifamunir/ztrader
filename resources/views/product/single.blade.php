@@ -31,24 +31,31 @@
         <tr>
           <td>
             <div style="max-width: 200px;">
-              <img src="{{ URL::asset('img/product/'.$Product['image']) }}" class="responsive-img materialboxed" data-caption="{{ $Product['name'] }}">
+              {{-- <img src="{{ URL::asset('img/product/'.$Product['image']) }}" class="responsive-img materialboxed" data-caption="{{ $Product['name'] }}"> --}}
             </div>
           </td>
         </tr>
 
-        <tr>
+        {{-- <tr>
           <th>Name</th>
-          <td>{{ $Product['name'] }}</td>
-        </tr>
+          <td>{{ $Product->name }}</td>
+        </tr> --}}
 
         {{-- <tr>
           <th>Company</th>
           <td>{{ $Product['sub_category']['name'] }}</td>
         </tr> --}}
 
+        {{-- {{ dd($subcategory  ) }} --}}
+
         <tr>
-          <th>Main Category</th>
+          <th>Brands</th>
           <td>{{ $maincategory->name }}</td>
+        </tr>
+
+        <tr>
+          <th>Products</th>
+          <td>{{ $subcategory->name }}</td>
         </tr>
 
         <tr>

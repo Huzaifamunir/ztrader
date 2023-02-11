@@ -13,11 +13,26 @@
 
     <h4 class='thin font-light tooltipped' align='center' data-position="bottom" data-delay="200" data-tooltip="add new {{ $entity }}">
       <span class="mdi mdi-{{$icon}}"></span>
-      <span class="uc-first">{{ $entity }}</span>
+      <span class="uc-first">
+
+        @if ($entity=='main_category')
+          Brands
+
+        @elseif($entity == 'sub_category')
+
+        Product
+
+        @else
+
+        {{ $entity }}
+
+        @endif
+      </span>
     </h4>
   </div>  
 
   <div class="col s12 m12 l12" id="app">
+    
     {{ $form }}
   </div>
 

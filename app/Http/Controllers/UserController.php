@@ -68,6 +68,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd('good');
       
         $this->validate($request, [
             'name' => 'required',

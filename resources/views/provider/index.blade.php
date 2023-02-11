@@ -149,12 +149,15 @@
 
             <thead>
                 <tr>
-                    <th hidden>No#</th>
-                    <th style="padding-right:160px;">Name</th>
+                    {{-- <th hidden>No#</th> --}}
+                    <th style="padding-right:100px;">Name</th>
                     {{-- <th>City</th>
                     <th>Address</th> --}}
-                    <th>Company</th>
-                    <th>Mobile #</th>
+                    <th style="padding-right:100px;">Company</th>
+                    <th style="padding-right:50px;">Mobile #</th>
+                    <th style="padding-right:120px;">Address</th>
+
+                    <th style="padding-right:100px;">City</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -170,11 +173,28 @@
                     {{-- <td>{{ $Client->current_bal }}</td> --}}
                      {{-- {{ dd($client) }} --}}
                  @foreach ($client as $i )
-                 <td hidden></td>
+                <tr>
+
+                    {{-- {{ dd($i) }} --}}
+
+                 {{-- <td hidden></td> --}}
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->company_name }}</td>
                  <td>{{$i->mobileno}}</td>
+                 <td>{{$i->address}}</td>
                  <td>
+                    <?php $get_provider=\App\Models\City::where(['name' => $i->name])->first();
+                     
+                    ?>
+                       {{-- {{ dd($get_provider) }} --}}
+                {{-- {{ $get_provider->name }}  --}}
+                 </td>
+                 {{-- <td>{{$i->mobileno}}</td> --}}
+                 <td>
+
+                
+
+
                     {{-- <a class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
                     </a> --}}
@@ -185,6 +205,8 @@
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
                 </td>
+            </tr>
+
                  @endforeach
                 {{-- @endforeach --}}
             </tbody>

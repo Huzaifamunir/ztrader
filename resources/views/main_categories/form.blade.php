@@ -17,7 +17,7 @@
       @include('partials/_errors')
 
       <div class="input-field col s12 m12 l12">
-        @component('components.text_field', ['field_name'=>'name','field_label'=>'Category Name'
+        @component('components.text_field', ['field_name'=>'name','field_label'=>' Name'
         ,'company_id' =>  Auth()->user()->company_id  ])
         @endcomponent
       </div>

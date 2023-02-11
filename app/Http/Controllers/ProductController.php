@@ -116,6 +116,7 @@ class ProductController extends Controller
      */
     public function show(Request $request, $id)
     {
+
         if($request->ajax()){
             $Product = Product::find($id)->toArray();
             return $Product;
@@ -123,10 +124,12 @@ class ProductController extends Controller
 
         // $Product = Product::with('sub_category.main_category')->find($id);
         $Product = Product::where('id','=',$id)->first();
+        // dd($Product);
         $subcategory=SubCategory::where('id','=',$Product->sub_category_id)->first();
+        // dd($subcategory);
         $maincategory=MainCategory::where('id','=',$subcategory->main_category_id)->first();
 
-        return view('product/single', compact('Product','maincategory'));
+        return view('product/single', compact('Product','maincategory','subcategory'));
     }
 
     /**

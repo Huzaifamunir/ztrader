@@ -35,6 +35,11 @@
             <th>Mobile Number</th>
             <td>{{ $user->mobileno }}</td>
           </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>{{ $user->email }}</td>
+          </tr>
           <tr>
             <th>City</th>
             <td>{{ $user->city_id }}</td>
@@ -48,25 +53,35 @@
             <td></td>
           </tr> --}}
           <tr>
-            <th>Current Balance</th>
+            <th>Opening Balance</th>
             <td>{{ $user->start_bal }}</td>
+          </tr>
+          <tr>
+            <th>Current Balance</th>
+            <td>{{ $user->current_bal }}</td>
           </tr>
           <tr>
             <th></th>
             <td>
-              <a class="btn" href="">Sale</a>
+
               <a class="btn" href="">Ledger</a>
+              
+              <a class="btn edit-btn" href="{{ route('client_edit',$user->id)}}">
+                <span class="mdi mdi-pen"></span> Edit
+              </a>
+              
+              <a class="btn" style="background-color: red; color:#fff;" href="">Delete</a>
             </td>
           </tr>
 
-      <tr>
+      {{-- <tr>
         <th>
           <a class="btn edit-btn" href="{{ route('client_edit',$user->id)}}">
             <span class="mdi mdi-pen"></span> Edit
           </a>
         </th>
 
-      </tr>
+      </tr> --}}
     </tbody>
   </table>
 </div>

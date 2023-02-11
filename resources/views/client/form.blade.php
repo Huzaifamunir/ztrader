@@ -76,7 +76,12 @@
                 <label for="mobile_no" >Mobile #</label>
               </div>
 
-              <div class="input-field col s4">
+              <div class="input-field col s6">
+                <input type="text" name="email"  required/>
+                <label for="email" >Email</label>
+              </div>
+
+              <div class="input-field col s6">
                  <select selected name="city_id" required >
                       <option selected>City </option>
                       @foreach ($city as $item)
@@ -89,7 +94,7 @@
 
               </div>
 
-              <div class="input-field col s8">
+              <div class="input-field col s6">
                 <input type="text" name="address" required/>
                 <label for="Address" >Address</label>
               </div>
