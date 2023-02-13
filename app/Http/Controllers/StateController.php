@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,8 @@ class StateController extends Controller
         // }
 
         $States=State::orderBy('name','asc')->paginate(100);
+
+
 
         
         
@@ -86,8 +89,10 @@ class StateController extends Controller
     public function show($id)
     {
         $State=State::find($id);
+
+        $cities = City::where('state_id', $id)->get();
         
-        return view('state/single')->with(['State'=>$State]);
+        return view('state/single', compact('cities', 'State'));
     }
 
     /**
@@ -106,8 +111,8 @@ class StateController extends Controller
             "submit" => "Update"
         ];
 
-        $Countries=Country::where('company_id', '=', Auth::user()->company_id);
-
+        $Countries=Country::get();
+        
         return view('state/form',compact('form','State','Countries'));
     }
 

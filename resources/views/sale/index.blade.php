@@ -117,12 +117,13 @@ table.dataTable tbody td{
                     $get_Seller=\App\Models\User::where(['id' => $Sale->seller_id])->first();
                     // $get_Seller=explode('.',$get_Seller->name);
                 ?>
-       
+
+      
             <tr>
                 <td hidden>{{$i++}}</td>
               <td>{{ $Sale->created_at->format('d-M-Y') }}</td>
               <td>ZR_{{ str_pad($Sale['id'], 3, "0", STR_PAD_LEFT) }}</td>
-              <td>{{ $get_Client[0]}}{{ $get_Client[1] }}</td>
+              <td>{{ $get_Client[0]}} {{ $get_Client[1] }}</td>
               
               <td>{{ $get_Seller->name }}</td>
               <!-- <td>{{ $Sale->total_sets }}</td> -->

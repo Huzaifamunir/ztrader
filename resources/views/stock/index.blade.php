@@ -35,7 +35,7 @@
             <th>Provider</th>
             <th>Company Name</th>
             <th>Total Amount</th>
-            <th>Action</th>
+            <th style="width:100px;">Action</th>
           </tr>
         </thead>
 
@@ -61,10 +61,10 @@
 
               <td>{{ $Stock->total_amount }}</td>
               <td>
-                <a class="action-btn edit-btn" href="{{ route('stock.edit', [ $Stock['id']]) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('stock.edit', [ $Stock['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('stock.show', [$Stock['id']]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('stock.show', [$Stock['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

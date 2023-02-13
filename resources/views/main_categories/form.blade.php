@@ -14,6 +14,8 @@
         <input type="hidden" value="{{ Auth()->user()->company_id }}" name="company_id" for="company_id" />
       @endif
 
+      {!! Form::hidden('comany_id',Auth::User()->id) !!}
+
       @include('partials/_errors')
 
       <div class="input-field col s12 m12 l12">
@@ -31,7 +33,7 @@
       @if($form['value']=='update')
         <div class="input-field col s6 m6 l6">
           {{ Form::open(['method'=>'delete', 'route'=>['main_category.destroy', $MainCategory['id']]]) }}
-            {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }}
+            {{-- {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }} --}}
           {{ Form::close() }}
         </div>
       @else

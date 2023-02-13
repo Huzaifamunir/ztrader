@@ -30,7 +30,7 @@
           </div> --}}
 
           <div class="input-field col s12 m6 l6" id="rc_container">
-            <input type="text" list="users_list" name="client_id" v-model="client_id">
+            <input type="text" list="users_list" id="get_user" name="client_id" v-model="client_id">
             <label class="active">Client</label>
             <div>
               <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [[ selected_client ]]</label>
@@ -167,18 +167,29 @@
           <div class="col s12 m12 l12" style="height:20px;"></div>
 
           <div class="col s12" style="background:#eeeeee;padding:1%;">
-            <div class="col s6 offset-s6">
-              <div class="col s4">
+            <div class="col s6 offset-s6" style="margin-left: 0px; display:flex; width:100%;">
+              <div class="col  s6">
                 <strong>Quantity</strong>
                 <p>[[ total_sets ]]</p>
                 <input type="hidden" name="total_sets" :value="total_sets">
               </div>
-              <div class="col s4">
+              <div class="col s6">
                 <strong>Total</strong>
                 <p>[[ total_amount ]]</p>
                 <input type="hidden" name="total_amount" :value="total_amount">
               </div>
-              <div class="col s4">
+              <div class="col s6">
+                <strong>Banks</strong>
+                <p>
+                  <select name="transaction_mode" id="payment_type">
+                    @foreach ($banks as $bank)
+                    <option value="{{ $bank->bank_id }}">{{ $bank->bank_name }}</option>
+                    @endforeach
+                  </select>
+                </p>
+                <br>
+              </div>
+              <div class="col s6">
                 <strong>Payment</strong>
                 <p>
                   <input type="number" name="payment" v-model="payment" step="0.00" min="0" :max="total_amount">
@@ -215,7 +226,10 @@
 @stop 
 
 @section('page_scripts')
+
 <script>
+
+
 var app = new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],

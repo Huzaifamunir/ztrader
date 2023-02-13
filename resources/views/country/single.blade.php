@@ -29,14 +29,22 @@
           <th>
             <a href="#">States</a>
           </th>
-          <td></td>
+          @foreach ($states as $state)
+
+          <tr>
+            <td>{{ $state->name }}</td>
+          </tr>
+
+
+              
+          @endforeach
         </tr>
-        <tr>
+        {{-- <tr>
           <th>
           <a href="#">Cities</a>
           </th>
           <td></td>
-        </tr>
+        </tr> --}}
 
         <tr>
           <th>
@@ -46,7 +54,7 @@
           </th>
           <td>
             {{ Form::open(['method'=>'delete', 'route'=>['country.destroy', $Country['id']]]) }}
-              {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }}
+              {{-- {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }} --}}
             {{ Form::close() }}
           </td>
         </tr>

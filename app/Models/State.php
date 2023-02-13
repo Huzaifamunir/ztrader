@@ -22,7 +22,7 @@ class State extends Model
    * @var array
    */
   public static $rules = [
-  	'country_id' => ['required','numeric'],
+  	// 'country_id' => ['required','numeric'],
 	  'name' => ['required','string']
   ];
 

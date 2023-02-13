@@ -15,6 +15,7 @@ class Sale extends Model
     	'total_amount',
         'total_profit',
         'client_balance',
+        'old_sale_balance',
     ];
 
     public static $rules = [

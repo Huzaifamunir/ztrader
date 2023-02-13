@@ -59,6 +59,7 @@ class ClientController extends Controller
 
          $client=new User;
          $client->company_id= Auth::user()->company_id;
+         $client->email = $request->email;
          $client->name=$request->first_name.'.'.$request->last_name;
 
          if(isset($request->start_bal)){

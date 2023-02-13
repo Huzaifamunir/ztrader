@@ -140,9 +140,12 @@ table.dataTable tbody td{
                 </td>
               @else
 
-              {{-- {{ dd($Payment->transaction_mode) }} --}}
+              {{-- {{ dd($Payment) }} --}}
 
               <?php $get_bank=\App\Models\Bank::where(['bank_id' => $Payment->transaction_mode])->first();?>
+
+              {{-- {{ dd($get_bank) }} --}}
+              
                 <td>{{ $get_bank->bank_name }}</td>
               @endif
 
@@ -151,10 +154,10 @@ table.dataTable tbody td{
               </td>
 
               <td>
-                <a class="action-btn edit-btn" href="{{ route('payment.edit', [$Payment['id']]) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('payment.edit', [$Payment['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('payment.show', [$Payment['id']]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('payment.show', [$Payment['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

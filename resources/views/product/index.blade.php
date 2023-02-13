@@ -129,10 +129,10 @@ table.dataTable tbody td{
               <td>{{ $Product['sale_price'] }}</td>
               <td>{{ $Product['current_stock'] }}</td>
               <td>
-                <a class="action-btn edit-btn" href="{{ route('product.edit', [ $Product['id']]) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('product.edit', [ $Product['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('product.show', [ $Product['id']]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('product.show', [ $Product['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

@@ -32,9 +32,9 @@
         </caption>
         <thead>
           <tr>
-            <th>Brands</th>
-            <th>Products</th>
-            <th>Action</th>
+            <th >Brands</th>
+            <th >Products</th>
+            <th style="width:100px;">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -53,10 +53,10 @@
               </td>
 
               <td>
-                <a class="action-btn edit-btn" href="{{ route('main_category.edit', [$MainCategory['id'] ] ) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('main_category.edit', [$MainCategory['id'] ] ) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('main_category.show', [$MainCategory['id'] ]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('main_category.show', [$MainCategory['id'] ]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

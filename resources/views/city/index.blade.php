@@ -31,7 +31,7 @@
         <thead>
           <tr>
               <th>Name</th>
-              <th>Action</th>
+              <th style="width:100px">Action</th>
           </tr>
         </thead>
 
@@ -40,10 +40,10 @@
             <tr>
               <td>{{ $City->name }}</td>
               <td>
-                <a class="action-btn edit-btn" href="{{ route('city.edit', [ $City['id']]) }}">
+                <a style="font-size: 20px;" class="action-btn edit-btn" href="{{ route('city.edit', [ $City['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('city.show', [ $City['id']]) }}">
+                <a style="font-size: 20px;" class="action-btn single-btn" href="{{ route('city.show', [ $City['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

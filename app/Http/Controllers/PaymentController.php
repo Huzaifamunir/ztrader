@@ -122,6 +122,10 @@ class PaymentController extends Controller
         
         $Payment = Payment::create($input);
 
+        $update=Payment::where('id',$Payment->id)->first();
+        $update->payer_id=$request->client_id;
+        $update->save();
+
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'New Record Successfully Created !');
         $request->session()->flash('message.link', 'payment/'.$Payment->id);
@@ -145,7 +149,8 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $Payment=Payment::with('payer.client')->find($id);
+        
+        $Payment=Payment::find($id);
         
         return view('payment/single')->with(['Payment'=>$Payment]);
     }
@@ -158,15 +163,18 @@ class PaymentController extends Controller
      */
     public function edit(Payment $payment)
     {   
+
+        // dd($payment->id);
         $form=[
             "value" => "update",
             "name" => "Edit Payment",
             "submit" => "Save"
         ];
 
-        $clients_list = Client::all();        
+        $clients_list = User::role('Client')->where('company_id', Auth::user()->company_id)->get();
+        $banks = Bank::all();
 
-        return view('payment/form',compact('form','clients_list','payment'));
+        return view('payment/form',compact('form','clients_list','payment', 'banks'));
     }
 
     /**
@@ -180,7 +188,7 @@ class PaymentController extends Controller
     {   
         $input = $request->all();
         
-        $client = Client::find($input['client_id']);
+        $client = User::find($input['client_id']);
         $user = $client->user;
         
         // Remove old payment
@@ -198,7 +206,7 @@ class PaymentController extends Controller
         $new_bal = $client['current_bal']-$input['amount'];
         $client->update(['current_bal' => $new_bal]);
         
-        $input['payer_id'] = $user['id'];
+        // $input['payer_id'] = $user['id'];
 
         $payment->update($input);
 
@@ -215,10 +223,16 @@ class PaymentController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Payment $payment,Request $request)
     {   
         
-        return redirect('ud');
+        $payment=Payment::findOrFail($payment->id);
+        $payment->delete();
+
+        $request->session()->flash('message.level', 'error');
+        $request->session()->flash('message.content', 'Record deleted!');
+
+        return redirect('payment');
     }
 
     /**

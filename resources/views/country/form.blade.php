@@ -29,7 +29,7 @@
       @if($form['value']=='update')
         <div class="input-field col s6 m6 l6">
           {{ Form::open(['method'=>'delete', 'route'=>['country.destroy', $Country['id']]]) }}
-            {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }}
+            {{-- {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }} --}}
           {{ Form::close() }}
         </div>
       @else  

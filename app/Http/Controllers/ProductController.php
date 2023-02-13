@@ -118,8 +118,11 @@ class ProductController extends Controller
     {
 
         if($request->ajax()){
+            
             $Product = Product::find($id)->toArray();
-            return $Product;
+            $Sub=SubCategory::where('id',$Product['sub_category_id'])->first();
+           
+            return [$Product,$Sub];
         }
 
         // $Product = Product::with('sub_category.main_category')->find($id);

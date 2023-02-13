@@ -21,7 +21,13 @@ class Country extends Model
      * @var array
      */
     public static $rules = [
-		'name' => ['required','string','unique:countries']
+		'name' => [
+
+        'required',
+        'string',
+        'unique:countries'
+        
+        ]
 	];
 
 	/**

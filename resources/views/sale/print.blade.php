@@ -34,7 +34,11 @@
         	</tr>
           <tr style="border-bottom: 2px solid black;">
           	<th></th>
-            <th>Name : {{ $Sale['client']['user']['person']['first_name']." ".$Sale['client']['user']['person']['last_name'] }}</th>
+            <?php $get_Client_data=\App\Models\User::where(['id' => $Sale->client_id])->first();
+            $get_Client=explode('.',$get_Client_data->name);
+            ?>
+           
+            <th>Name : {{ $get_Client[0] }} {{ $get_Client[1] }}</th>
           </tr>
           <tr>
             <th></th>
@@ -53,10 +57,10 @@
           	$count = 1;
           @endphp
 
-          @foreach($Sale->items as $item) 
+          @foreach($sale_item as $item) 
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $item['product']['model'] }}</td>
+              <td>{{ $get_Client=\App\Models\Product::where(['id' => $item->product_id])->pluck('model')->first() }}</td>
               <td>{{ $item['quantity'] }}</td>
               <td>{{ $item['price_per_unit'] }}</td>
               <td>{{ $item['sub_total'] }}</td>
@@ -64,6 +68,7 @@
           @endforeach
         </tbody>
       </table>
+      
       <div class="col s12" style="font-size:16px;font-weight:bold;border-top:2px solid black;">
         <div class="col s3">
           <p>Total Amount <br>Rs.{{ $Sale['total_amount'] }}</p>
@@ -72,16 +77,20 @@
         @if($Sale['payment']!=null)
         <div class="col s3">
           <p>
+            <?php $get_Client_payment=\App\Models\Payment::where(['id' => $Sale->payment_id])->first() ?>
             @if($Sale['payment']['amount']!=null )
-              Payment <br>Rs.{{ $Sale['payment']['amount'] }}
+              Payment <br>Rs.{{ $get_Client_payment->amount }}
             @else
               Payment <br>Rs.0  
             @endif
           </p>
         </div>
+        
         <div class="col s3">
           <p>
-            Old Balance <br>Rs.{{ $Sale['client']['current_bal']-($Sale['total_amount']-$Sale['payment']['amount']) }}
+              {{-- {{ dd($get_Client_data->current_bal-($Sale['total_amount']-$get_Client_payment->amount)) }} --}}
+            Old Balance <br>Rs.{{ $get_Client_data->current_bal-($Sale['total_amount']-$get_Client_payment->amount) }}
+            {{-- {{ $Sale['client']['current_bal']-($Sale['total_amount']-$Sale['payment']['amount']) }} --}}
           </p>
         </div>
         @else
@@ -93,13 +102,15 @@
         </div>
         <div class="col s3">
           <p>
-            Old Balance <br>Rs.{{ $Sale['client']['current_bal']-($Sale['total_amount']-0) }}
+            Old Balance <br>Rs.
+            {{ $get_Client_data->current_bal-($Sale['total_amount']-0) }}
           </p>
         </div>
         @endif
         <div class="col s3">
           <p>
-            New Balance <br>Rs.{{ $Sale['client']['current_bal'] }}
+            New Balance <br>Rs.
+            {{ $get_Client_data->current_bal }}
           </p>
         </div>
       </div>

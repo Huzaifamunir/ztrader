@@ -114,29 +114,10 @@
         </div>
     </div>
 
-    {{--
-      @component('components.index_header', ['entity' => 'client'])
-    @slot('column_list')
-      <div class="input-field col s5">
-        {!! Form::select('column', [
-          'first_name' => 'First Name',
-          'last_name' => 'Last Name',
-          'mobile_no' => 'Mobile #',
-          'email' => 'Email',
-          'current_bal' => 'Balance'
-        ], null, ['placeholder' => 'Select Column', 'required' => 'required']) !!}
-      </div>
-    @endslot
-  @endcomponent
-  --}}
+
 
     <div class="z-depth-5" style="padding:1%;background-color: white;">
 
-        {{-- @if ($Clients->isEmpty()) --}}
-        {{-- <center>
-        <h3 class="thin">No Record Found !</h3>
-      </center> --}}
-        {{-- @else --}}
 
         <table class="highlight bordered display" id="clientTable">
 
@@ -155,37 +136,30 @@
                     <th style="width:12%;">Email</th>
                     <th style="width:10%;">City</th>
                     <th style="width:20%;">Address</th>
-                    <th style="width:15%;">Current Balance</th>
-                    <th style="width:50%;">Action</th>
+                    <th style="width:12%;">Current Balance</th>
+                    <th >Action</th>
                 </tr>
             </thead>
-{{-- {{ $k=0 }} --}}
             <tbody>
-                {{-- @foreach ($Clients as $Client) --}}
-                    {{-- <td hidden>{{$i++}}</td> --}}
-                    {{-- <td>{{ $Client['user']['person']['first_name']." ".$Client['user']['person']['last_name'] }}</td> --}}
-                    {{-- <td>{{ $Client['user']['person']['land_line_no'] }}</td> --}}
-                    {{-- <td>{{ $Client['user']['person']['mobile_no'] }}</td> --}}
-                    {{-- <td>{{ $Client['user']['person']['city']['name'] }}</td> --}}
-                    {{-- <td>{{ $Client['user']['person']['address'] }}</td> --}}
-                    {{-- <td>{{ $Client->current_bal }}</td> --}}
+            
                  @foreach ($client as $i )
+                 {{-- {{ dd($i) }} --}}
                 <tr>
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->mobileno }}</td>
                  <td>{{ $i->email }}</td>
-                 <td>{{$i->city_id}}</td>
+                 <td>{{$i->city_name}}</td>
                  <td>{{$i->address}}</td>
                  <td>{{$i->current_bal}}</td>
                  <td>
-                    <a class="action-btn single-btn" href="">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
                     </a>
-                    <a class="action-btn edit-btn" href="{{ route('client_edit',$i->id)}}">
+                    <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('client_edit',$i->id)}}">
                         <span class="mdi mdi-pen"></span>
                     </a>
-                    <a class="action-btn single-btn" href="{{ route('client_single',$i->id)}}">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('client_single',$i->id)}}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
                 </td>
@@ -194,10 +168,8 @@
 
 
 
-                {{-- @endforeach --}}
             </tbody>
         </table>
-        {{-- @endif --}}
 
 
     </div>

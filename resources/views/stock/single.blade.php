@@ -32,7 +32,7 @@
       <tbody>
         <tr>
           <th>Buyer</th>
-          <td>{{ $Stock['user']['name'].' '.$Stock['user']['name'] }}</td>
+          <td>{{ $Stock['user']['name']}}</td>
         </tr>
         <tr>
           <th>Provider</th>
@@ -63,8 +63,8 @@
           <th style="width:100px;">Sr #</th>
           <th style="width:100px;"> Product</th>
           <th style="width:200px;">Model</th>
-          <th style="width:100px;">Sale Price/Unit</th>
           <th style="width:100px;">Quantity</th>
+          <th style="width:100px;">Sale Price</th>
           <th style="width:100px;">Sub Total</th>
         </tr>
 
@@ -79,8 +79,8 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $get_sub->name }}</td>
             <td>{{ $item['product']['model'] }}</td>
-            <td>{{ $item['price_per_unit'] }}</td>
             <td>{{ $item['quantity'] }}</td>
+            <td>{{ $item['price_per_unit'] }}</td>
             <td>{{ $item['sub_total'] }}</td>
           </tr>
         @endforeach

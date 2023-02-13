@@ -29,10 +29,17 @@
         <div id="app" class="input-field col s6">
           @if($form['value']=='update')
             <h5>
-              {{ $payment['payer'].' '.$payment['payer']['person']['last_name'] }} -
-              {{ $payment['payer']['client']['current_bal'] }}
+
+              <?php $get_client=\App\Models\user::where(['id' => $payment->payer_id])->first();
+              $get_client_name=explode('.',$get_client->name);
+              ?>
+
+
+
+              {{ $get_client_name[0] }} {{ $get_client_name[1] }} -
+              {{ $get_client->current_bal }}
             </h5>
-            {!! Form::hidden('client_id',$payment['payer']['client']['id']) !!}
+            {!! Form::hidden('client_id',$get_client->id) !!}
           @else
           <div id="client_list_">
             <input type="text" list="users_list" name="client_id" v-model="payer_id">
@@ -71,7 +78,7 @@
             <option value="Bank">Bank</option>
           </select>
           <label>Transaction Mode</label>
-        </div>  
+        </div>
 
         <div class="input-field col s3">
           @component('components.text_field', ['field_name'=>'amount','field_label'=>'Amount'])

@@ -117,12 +117,14 @@ class MainCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id);
+        // dd($request->all());
         //
         $this->validate($request, MainCategory::$rules);
+        
+        $MainCategory=MainCategory::find($id); 
+        $MainCategory->name=$request->name;
+        $MainCategory->save();
 
-        $MainCategory=MainCategory::find($id);
-        $MainCategory->update($request->all());
 
         $request->session()->flash('message.level', 'warning');
         $request->session()->flash('message.content', 'Record Updated !');

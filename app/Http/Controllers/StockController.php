@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use App\Models\Item;
 
 use App\Models\Stock;
+use App\Models\City;
 use App\Models\Product;
 use App\Models\StockItems;
 use App\Models\User;

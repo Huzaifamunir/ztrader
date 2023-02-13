@@ -15,7 +15,7 @@ class MainCategory extends Model
    */
   public static $rules = [
     'name' => ['required','string'],
-    'company_id' => ['required','string'],
+    // 'company_id' => ['required','string'],
   ];
 
 

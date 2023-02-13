@@ -33,15 +33,22 @@
         </tr>
         <tr>
           <th>Received By</th>
-          <td>{{ $Payment->receiver->person->first_name." ".$Payment->receiver->person->last_name }}</td>
+          <?php $get_receiver=\App\Models\User::where(['id' => $Payment->receiver_id])->first();
+              
+              ?>
+          <td>{{ $get_receiver->name }}</td>
         </tr>
         <tr>
           <th>Payer</th>
           <td>
-            <a href="{{ route('client.show',['id'=>$Payment['payer']['client']['id']]) }}">
-              {{ $Payment->payer->person->first_name." ".$Payment->payer->person->last_name }}
+            <?php $get_client=\App\Models\User::where(['id' => $Payment->payer_id])->first();
+              $get_client_name=explode('.',$get_client->name);
+              ?>
+            <a href="{{ route('client_single',['id'=>$get_client->id]) }}">
+              
+              {{ $get_client_name[0] }} {{ $get_client_name[1] }}
             </a>
-            <!-- &#40;{{ $Payment['payer']['client']['current_bal'] }}&#41; -->
+            {{-- <!-- &#40;{{ $Payment['payer']['client']['current_bal'] }}&#41; --> --}}
           </td>  
         </tr>
         <tr>

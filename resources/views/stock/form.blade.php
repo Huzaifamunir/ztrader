@@ -82,11 +82,11 @@
               </div> -->
 
               <div class="col s12" :id="key+'_product_details'" style="display:none;">
-                <div class="col s4">
+                {{-- <div class="col s4" >
                   <img src="" :id="key+'_pi'" class="responsive-img">
-                </div>
+                </div> --}}
                 <div class="col s8">
-                  <p>Name: <strong :id="key+'_pn'"></strong></p>
+                  <p>Product: <strong :id="key+'_pn'"></strong></p>
                   <p>Model: <strong :id="key+'_pm'"></strong></p>
                   <p>General Sale Price: Rs. <strong :id="key+'_gsp'"></strong></p>
                   <p>Current Stock: <strong :id="key+'_lsp'"></strong></p>
@@ -222,13 +222,13 @@ var app = new Vue({
       $('#modal1').modal('open');
     },
     show_product: function (key,id) {
-      $.get("/product/"+id,function(data, status){
-        $('#'+key+'_pi').attr("src","{{ URL::asset('img/product/') }}/"+data.image);
-        $('#'+key+'_pn').html(data.name);
-        $('#'+key+'_pm').html(data.model);
-        $('#'+key+'_gsp').html(data.sale_price);
-        $('#'+key+'_lsp').html(data.current_stock);
-        $('#'+key+'_pnl').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+data.name+" | "+data.model);
+      $.get("../../ztrader/product/"+id,function(data, status){
+        // $('#'+key+'_pi').attr("src","{{ URL::asset('img/product/') }}/"+data.image);
+        $('#'+key+'_pn').html(data[1].name);
+        $('#'+key+'_pm').html(data[0].model);
+        $('#'+key+'_gsp').html(data[0].sale_price);
+        $('#'+key+'_lsp').html(data[0].current_stock);
+        $('#'+key+'_pnl').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+data[1].name+" | "+data.model);
         $('#'+key+'_product_details').slideDown('slow');
         $('#'+key+'_product_details').addClass('opened');
       });

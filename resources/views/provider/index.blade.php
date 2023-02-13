@@ -198,10 +198,10 @@
                     {{-- <a class="action-btn single-btn" href="">
                         <span class="mdi mdi-script"></span>
                     </a> --}}
-                    <a class="action-btn edit-btn" href="{{ route('provider_edit',$i->id)}}">
+                    <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('provider_edit',$i->id)}}">
                         <span class="mdi mdi-pen"></span>
                     </a>
-                    <a class="action-btn single-btn" href="{{ route('provider_single',$i->id)}}">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('provider_single',$i->id)}}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
                 </td>

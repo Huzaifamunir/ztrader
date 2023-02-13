@@ -21,8 +21,8 @@
 @endif
 
 
-<table class="table table-bordered">
- <tr>
+<table class="table table-bordered " style="background-color:#fff;" >
+ <tr >
   {{-- <th>No</th>--}}
    <th>Name</th>
    <th>Address</th>
@@ -30,7 +30,7 @@
    <th width="280px">Action</th>
  </tr>
  @foreach ($data as $key => $user)
-  <tr>
+  <tr style="border:1px solid black;"> 
     {{-- <td>{{ ++$i }}</td> --}}
     <td>{{ $user->company_name }}</td>
     <td>{{ $user->company_address }}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,8 +76,11 @@ class CountryController extends Controller
     public function show($id)
     {
         $Country=Country::find($id);
+
+        $states = State::where('country_id', $id)->get();
+        // dd($states); 
         
-        return view('country/single')->with(['Country'=>$Country]);
+        return view('country/single', compact('states','Country'));
     }
 
     /**

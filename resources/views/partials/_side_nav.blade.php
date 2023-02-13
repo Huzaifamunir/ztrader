@@ -44,7 +44,7 @@
                         </a>
                     </td>
                     <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
-                        <a href="{{route('country.index')}}">
+                        <a href="{{route('country.create')}}">
                             <span class="mdi mdi-plus-circle-outline font-dark"></span>
                         </a>
                     </td>
@@ -59,7 +59,7 @@
                         </a>
                     </td>
                     <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
-                        <a href="{{route('state.index')}}">
+                        <a href="{{route('state.create')}}">
                             <span class="mdi mdi-plus-circle-outline font-dark"></span>
                         </a>
                     </td>
@@ -74,7 +74,7 @@
                         </a>
                     </td>
                     <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
-                        <a href="{{route('city.index')}}">
+                        <a href="{{route('city.create')}}">
                             <span class="mdi mdi-plus-circle-outline font-dark"></span>
                         </a>
                     </td>
@@ -89,7 +89,7 @@
                         </a>
                     </td>
                     <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
-                        <a href="{{route('show_bank')}}">
+                        <a href="{{url('bank/create')}}">
                             <span class="mdi mdi-plus-circle-outline font-dark"></span>
                         </a>
                     </td>
@@ -117,7 +117,7 @@
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Invoice">
-                    <a href="">
+                    <a href="{{ route('sale.create') }}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>
@@ -132,7 +132,7 @@
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Receive payment">
-                    <a href="">
+                    <a href="{{ route('payment.create') }}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>
@@ -177,21 +177,11 @@
                     </a>
                 </td>
                 <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Add Product">
-                    <a href="">
+                    <a href="{{ route('products.create') }}">
                         <span class="mdi mdi-plus-circle-outline font-dark"></span>
                     </a>
                 </td>
               </tr>
-
-              <!-- <tr class="spaceUnder">
-                <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Users Index">
-                    <a href="">
-                        <span class=""mdi mdi-account font-dark">
-                            <span> Users</span>
-                        </span>
-                    </a>
-                </td>
-              </tr> -->
 
               <tr class="spaceUnder">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Provider Index">

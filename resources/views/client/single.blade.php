@@ -70,7 +70,7 @@
                 <span class="mdi mdi-pen"></span> Edit
               </a>
               
-              <a class="btn" style="background-color: red; color:#fff;" href="">Delete</a>
+              {{-- <a class="btn" style="background-color: red; color:#fff;" href="">Delete</a> --}}
             </td>
           </tr>
 

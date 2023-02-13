@@ -92,6 +92,10 @@ Route::group(['middleware' => ['auth']], function() {
      Route::get('/user_list', [App\Http\Controllers\StockController::class, 'user_list'])->name('user_list');
      Route::get('/product_list', [App\Http\Controllers\StockController::class, 'product_list'])->name('product_list');
 
+
+    //  Route::get('get_user_cash/{id}/{amount}', [App\Http\Controllers\SaleController::class, 'get_user_cash'])->name('get_user_cash');
+
+
      Route::resource('country','App\Http\Controllers\CountryController');
      Route::resource('state','App\Http\Controllers\StateController');
      Route::resource('city','App\Http\Controllers\CityController');

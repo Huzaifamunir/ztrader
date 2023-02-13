@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Sale;
+use App\Models\Bank;
 use App\Models\Item;
 use App\Models\Person;
 use App\Models\Client;
@@ -45,120 +46,31 @@ class SaleController extends Controller
 
         $client = User::where('company_id', '=', Auth::user()->company_id)->get();
 
-        return view('sale/form',compact('form','Cities', 'client'));
+        $banks = bank::all();
+
+        return view('sale/form',compact('form','Cities', 'client', 'banks'));
     }
 
   public function store(Request $request)
     {   
         
-//         $input = Sale::create([
-//             'client_id' => $request->client_id,
-//             'seller_id' => $request->seller_id,
-//             'payment_id' => $request->payment_id,
-//             'company_id' => Auth::user()->company_id,
-//             'total_sets' => $request->total_sets,
-//             'total_amount' => $request->total_amount,
-//             'total_profit' => $request->total_profit,
-//             'client_balance' => $request->client_balance,
-//         ]);
-//         $total_profit = 0;
-//         $sale_items = [];
+        $client = User::find($request->client_id);
+     
+       
+        $input =  $request->all();
 
-//         if($input['user_type']=='WC'){
-//             $person = Person::create($input);
+        $get_old_bal=Sale::where('client_id',$input['client_id'])->latest()->first();
 
-//             $user = $person->user()->create($input);
+        if($get_old_bal==null)
+        {
+            $old_bal=0;
+        }else {
+            $old_bal= $get_old_bal->old_sale_balance + $input['total_amount'];
+        }
 
-//             $client = $user->client()->create($input);
+        $total_profit = 0;
+        $sale_items = [];
 
-//             $input['client_id'] = $client['id'];
-//         }
-
-//         foreach($input['product_id'] as $key => $item){
-//             $product = Product::find($input['product_id'][$key]);
-//             $profit = ($input['price_per_unit'][$key]-$product['purchase_price'])*$input['quantity'][$key];
-//             $total_profit+=$profit;
-
-//             $sale_items[] = [
-//                 'product_id' => $input['product_id'][$key],
-//                 'price_per_unit' => $input['price_per_unit'][$key],
-//                 'quantity' => $input['quantity'][$key],
-//                 'sub_total' => $input['sub_total'][$key],
-//                 'profit' => $profit,
-//             ];
-// $result=$input['sub_total'];
-//     $sum=0;        
-// for($i=0;$i<count($result);$i++)
-// {
-//     $sum=$sum+$result[$i];
-// }
-//             // update stock
-//             $product->decrement('current_stock',$input['quantity'][$key]);
-//         }
-        
-//         // Client balance update check
-//         $client = Client::find($input['client_id']);
-//         $balance = $input['total_amount']-$input['payment'];
-//         if($balance>0){
-//             $client->increment('current_bal',$balance);
-//         }
-
-//         // Add payment
-//         if($input['payment']>0){
-//             $payment_input = [
-//                 'receiver_id' => $input['seller_id'],
-//                 'payer_id' => $client['user_id'],
-//                 'date' => Carbon::Now(),
-//                 'transaction_mode' => 'Cash',
-//                 'amount' => $input['payment'],
-//                 'remarks' => 'Payment with sale.',
-//             ];
-//             $payment = Payment::create($payment_input);
-
-//             $input['payment_id'] = $payment['id'];
-//             // dd($input['payment_id']);
-//             $pay=Payment::where('id',$input['payment_id'])->first();
-//             // dd($pay->amount);
-//         }
-        
-//         $input['total_profit']=$total_profit;
-//         $input['client_balance']=$client['current_bal'];
-//         $Sale = Sale::create($input);
-        
-//         $Sale->items()->createMany($sale_items);
-
-//         $request->session()->flash('message.level', 'success');
-//         $request->session()->flash('message.content', 'Sale Successfully Created !');
-//         $request->session()->flash('message.link', 'sale/'.$Sale->id);
-//         $user_ph=Person::where('id',$client['user_id'])->first();
-//         $number=$user_ph->mobile_no;
-//         // dd($number);
-//         $user=Person::where('id',$client['user_id'])->first();
-
-//       $message="Dear ".$user->first_name.",\nBill No:".$Sale->id."\nBill Amount: ".$sum."Rs\nOld Balance:".$balance."Rs\nNew Balance: ".$client->current_bal."Rs\nFrom: ZR Erorex\nThanks";
-        
-//         $sms=HelperFunction::send_sms($number,$message);  
-
-//         return redirect('sale');
-
-
-        
-$input =  $request->all();
-
-
-
-$total_profit = 0;
-$sale_items = [];
-
-// if($input['user_type']=='WC'){
-//     $person = Person::create($input);
-
-//     $user = $person->user()->create($input);
-
-//     $client = $user->client()->create($input);
-
-//     $input['client_id'] = $client['id'];
-// }
 
 foreach($input['product_id'] as $key => $item){
     $product = Product::find($input['product_id'][$key]);
@@ -183,7 +95,7 @@ $sum=$sum+$result[$i];
 }
 
 // Client balance update check
-$client = User::find($input['client_id']);
+
 
 $balance = $input['total_amount']-$input['payment'];
 if($balance>0){
@@ -210,23 +122,19 @@ if($input['payment']>0){
 
 $input['total_profit']=$total_profit;
 $input['client_balance']=$client['current_bal'];
+$input['old_sale_balance']=$old_bal;
 $Sale = Sale::create($input);
 $update=Sale::where('id',$Sale->id)->first();
 $update->company_id= Auth::user()->company_id;
 $update->save();
+
+
 $Sale->items()->createMany($sale_items);
 
 $request->session()->flash('message.level', 'success');
 $request->session()->flash('message.content', 'Sale Successfully Created !');
 $request->session()->flash('message.link', 'sale/'.$Sale->id);
-    // $user_ph=User::where('id',$client['user_id'])->first();
-    // $number=$user_ph->mobile_no;
-// dd($number);
-// $user=User::where('id',$client['user_id'])->first();
 
-// $message="Dear ".$user->first_name.",\nBill No:".$Sale->id."\nBill Amount: ".$sum."Rs\nOld Balance:".$balance."Rs\nNew Balance: ".$client->current_bal."Rs\nFrom: ZR Erorex\nThanks";
-
-// $sms=HelperFunction::send_sms($number,$message);  
 
 return redirect('sale');
 }
@@ -234,10 +142,19 @@ return redirect('sale');
     
 
     public function show($id)
-    {   
-        $Sale = Sale::with('items.product','client','seller','payment')->find($id);
-        
-        return view('sale/print', compact('Sale'));
+    {       
+       
+        // $Sale = Sale::with('items.product','client','seller','payment')->find($id);
+        // $data=array();
+        // $keys=array('sale','sale_item','product');
+        $Sale=Sale::find($id);
+        $sale_item=SaleItem::where('sale_id',$Sale->id)->get();
+        // foreach ($sale_item as $sale) {
+        //     $product=Product::where('id',$sale->product_id)->first();
+        //     array_push($data,array_combine($keys,[$sale,$sale_item,$product]));
+        // }
+        // dd($data);
+        return view('sale/print', compact('Sale','sale_item'));
     }
     public function edit($id)
     {   
@@ -377,4 +294,15 @@ return redirect('sale');
         
         return view('sale.print')->with(['Sale'=>$Sale]);
     }
+
+    // public function get_user_cash($id,$amount)
+    // {
+        
+    //     $client = User::find($id);
+    //     $get_Client_name=explode('.',$client->name);
+    //     if($get_Client_name[0]=="cash" && $request->payment==0 )
+    //     {
+           
+    //     }
+    // }
 }

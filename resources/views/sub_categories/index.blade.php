@@ -40,7 +40,7 @@
           <tr>
             <th>Products</th>
             <th>Brands</th>
-            <th>Action</th>
+            <th style="width:100px;">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -53,10 +53,10 @@
               @endif
               @endforeach
               <td>
-                <a class="action-btn edit-btn" href="{{ route('sub_category.edit', [$SubCategory['id']]) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('sub_category.edit', [$SubCategory['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('sub_category.show', [$SubCategory['id']]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('sub_category.show', [$SubCategory['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

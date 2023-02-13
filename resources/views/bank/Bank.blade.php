@@ -24,7 +24,7 @@
             <tr>
                 <th>Bank Name</th>
                 <th>Balance</th>
-                <th>Action</th>
+                <th style="width:120px;">Action</th>
             </tr>
         </thead>
 
@@ -36,15 +36,15 @@
                 <td>{{ $banks->bank_name }}</td>
                 <td>{{ $banks->bank_balance }}</td>
                 <td>
-                    <a class="action-btn edit-btn" href="{{ route('bank.edit', [ $banks['bank_id']]) }}">
+                    <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('bank.edit', [ $banks['bank_id']]) }}">
                         <span class="mdi mdi-pen"></span>
                     </a>
 
-                    <a class="action-btn single-btn" href="{{ route('bank.show', [ $banks['bank_id']]) }}">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('bank.show', [ $banks['bank_id']]) }}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
 
-                    <a class="action-btn single-btn" href="{{ url('transiction', [ $banks['bank_id']]) }}">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ url('transiction', [ $banks['bank_id']]) }}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
 

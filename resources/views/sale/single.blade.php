@@ -34,6 +34,7 @@
         </tr>
         <tr>
           <th>Client</th>
+    
           <td>{{ $Sale['client']['user']['person']['first_name']." ".$Sale['client']['user']['person']['last_name'] }}</td>
         </tr>
         <tr>
