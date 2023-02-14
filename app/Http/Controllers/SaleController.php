@@ -34,7 +34,7 @@ class SaleController extends Controller
         return view("sale/index", compact("Sales","i"));
     }
 
-    public function create()
+    public function create()    
     {
         $form=[
             "value" => "add",
@@ -304,5 +304,11 @@ return redirect('sale');
     //     {
            
     //     }
+    // }
+
+
+    // public function get_sale(Request $request)
+    // {
+    //     return view('sale.index');
     // }
 }
