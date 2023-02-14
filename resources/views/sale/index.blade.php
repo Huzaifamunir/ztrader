@@ -129,10 +129,10 @@ table.dataTable tbody td{
               <!-- <td>{{ $Sale->total_sets }}</td> -->
               <td>{{ $Sale['total_amount'] }}</td>
               <td>
-                <a class="action-btn edit-btn" href="{{ route('sale.edit', [ $Sale['id']]) }}">
+                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('sale.edit', [ $Sale['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a class="action-btn single-btn" href="{{ route('sale.show', [ $Sale['id']]) }}">
+                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('sale.show', [ $Sale['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>

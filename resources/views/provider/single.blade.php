@@ -82,7 +82,7 @@
             </a>
           </th>
           <td>
-            <a class="btn delete-btn" href="{{ route('provider_delete', $provider->id)}}">Delete</a>
+            {{-- <a class="btn delete-btn" href="{{ route('provider_delete', $provider->id)}}">Delete</a> --}}
             {{-- {{ Form::open(['method'=>'delete', 'route'=>['provider.destroy', $Provider['id']]]) }}
               {{ Form::button('<span class="mdi mdi-delete"></span> Delete', ['class'=>'btn delete-btn', 'type'=>'submit']) }}
             {{ Form::close() }} --}}

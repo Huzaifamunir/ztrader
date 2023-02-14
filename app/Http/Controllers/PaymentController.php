@@ -27,21 +27,12 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        // if($request->ajax()){
-        //     //$books = App\Book::with(['author', 'publisher'])->get();
-        //     $Payments=Payment::with(['person'])->get();
-
-        //     return $Payments;
-        // }
         $i=1;
         $Payments = Payment::where('company_id',Auth::user()->company_id)->orderBy('updated_at','desc')->get();
 
-        $clients_name = User::role('Client')->where('company_id', '=', Auth::user()->company_id)->first();      
-
-
         
         
-        return view("payment/index", compact("Payments","i", "clients_name",));
+        return view("payment/index", compact("Payments","i"));
     }
 
     /**
@@ -71,38 +62,18 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {   
-        // dd($request->all());
+        
 
         $client = $request->client_id;
-        // dd($client);
+        
 
         $input = $request->all();
-        // dd($input);
-        // $input = Payment::create([
-        //     'receiver_id' => $request->receiver_id,
-        //     'payer_id' => $request->client_id,
-        //     'transaction_mode' => $request->transaction_mode,
-        //     'amount' => $request->amount,
-        //     'remarks' => $request->remarks,
-        //     'company_id' => Auth::user()->company_id,
-        //     'payer_id' => $request->payer_id,
-        // ]);
-
-        // dd($input);
+  
 
         $client = User::find($request->client_id);
 
-        // dd($client);
-
-        // dd($input['payer_id']);
-
-
         $user = $client->id;
 
-        // dd($user);
-
-        
-        // Client current balance update
         if($client['current_bal']<$input['amount']){
 
             $request->session()->flash('message.level', 'error');
@@ -112,13 +83,9 @@ class PaymentController extends Controller
         }
 
         $new_bal = $client['current_bal']-$input['amount'];
-
-        // dd($new_bal);
        
         $client->update(['current_bal' => $new_bal]);
 
-        
-        // $input['payer_id'] = $user['id'];
         
         $Payment = Payment::create($input);
 
@@ -151,8 +118,10 @@ class PaymentController extends Controller
     {
         
         $Payment=Payment::find($id);
+     
+        $balance = User::role('Client')->where('id', $Payment->payer_id)->first();
         
-        return view('payment/single')->with(['Payment'=>$Payment]);
+        return view('payment/single', compact('balance', 'Payment'));
     }
 
     /**
@@ -227,6 +196,12 @@ class PaymentController extends Controller
     {   
         
         $payment=Payment::findOrFail($payment->id);
+        $update_current_bal=User::where('id',$payment->payer_id)->first();
+        // dd($update_current_bal->current_bal);
+        $bal=$update_current_bal->current_bal + $payment->amount;
+        
+        $update_current_bal->current_bal=$bal;
+        $update_current_bal->save();
         $payment->delete();
 
         $request->session()->flash('message.level', 'error');

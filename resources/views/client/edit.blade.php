@@ -93,7 +93,7 @@
 
                   @foreach ($city as $item)
 
-                  <option value="">{{ $item->name }}</option>
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
 
                     
                   @endforeach

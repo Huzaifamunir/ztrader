@@ -36,7 +36,7 @@ class ClientController extends Controller
     public function client_add(Request $request)
     {
 
-         // dd($request->all());
+        
          
          // $rules = [
          //     'first_name' => ['required','string'],
@@ -60,6 +60,7 @@ class ClientController extends Controller
          $client=new User;
          $client->company_id= Auth::user()->company_id;
          $client->email = $request->email;
+         $client->city_id = $request->city_id;
          $client->name=$request->first_name.'.'.$request->last_name;
 
          if(isset($request->start_bal)){
@@ -121,6 +122,7 @@ class ClientController extends Controller
 
         $client=User::find($request->id);
         $client->name=$request->first_name.'.'.$request->last_name;
+        $client->email = $request->email;
 
         if(isset($request->start_bal)){
             $client->start_bal=$request->start_bal;

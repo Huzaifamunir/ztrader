@@ -105,8 +105,8 @@
             <label class="active">Price</label>
           </div>
 
-          <div class="input-field col s2">
-            <span class="btn add-item-btn" v-on:click="add_new_item">
+          <div class="input-field col s2" onclick="addbtn()">
+            <span class="btn add-item-btn"  v-on:click="add_new_item">
               <span class="mdi mdi-plus"></span>
             </span>
           </div>
@@ -176,23 +176,26 @@
               <div class="col s6">
                 <strong>Total</strong>
                 <p>[[ total_amount ]]</p>
-                <input type="hidden" name="total_amount" :value="total_amount">
+                <input type="hidden" id="get_total" name="total_amount" :value="total_amount">
               </div>
-              <div class="col s6">
+              <div class="col s6" id="payment_type_cash">
                 <strong>Banks</strong>
                 <p>
-                  <select name="transaction_mode" id="payment_type">
+                  
+                  <select name="transaction_mode" id="payment_type" >
                     @foreach ($banks as $bank)
                     <option value="{{ $bank->bank_id }}">{{ $bank->bank_name }}</option>
                     @endforeach
                   </select>
+               
                 </p>
                 <br>
               </div>
               <div class="col s6">
+                <input id="get_val" type="text" hidden>
                 <strong>Payment</strong>
                 <p>
-                  <input type="number" name="payment" v-model="payment" step="0.00" min="0" :max="total_amount">
+                  <input type="number" id="payment" oninput="myFunction()" name="payment" v-model="payment" step="0.00" min="0" :max="total_amount">
                 </p>
                 <br>
               </div>
@@ -210,7 +213,7 @@
         <div class="col s12 m12 l12"></div>
         
         <div class="input-field col s6 m6 l6">
-          {{ Form::button('<span class="mdi mdi-send"></span> Save', ['class'=>'btn', 'type'=>'submit']) }}
+          {{ Form::button('<span class="mdi mdi-send"></span> Save', ['class'=>'btn submitbtn', 'type'=>'submit']) }}
         </div>
       {!! Form::close() !!}
 
@@ -226,7 +229,75 @@
 @stop 
 
 @section('page_scripts')
+<script>
+  $(document).on('change', '#get_user', function () {
+        
+         
+var userid=$('#get_user').val();
 
+var url='{{route("get_cash_user",":id")}}';
+url=url.replace(':id',userid);
+$.ajax({
+    url:url,
+    type:'GET',
+    success:function(response){
+      console.log(response.cash_user);
+      if(response.cash_user=="cash")
+      {
+        $('#payment').val($('#get_total').val());
+  $('#payment').attr('disabled','disabled');
+        $('#get_val').val('cash');
+        $('#payment_type_cash').hide();
+        
+          if($('#payment').val()==0)
+          {
+          
+          $('.submitbtn').attr('disabled','disabled');
+          
+        }
+      }else
+      {
+        $('#payment').removeAttr('disabled');
+        $('#get_val').val('');
+        $('#payment_type_cash').show();
+        $('.submitbtn').removeAttr('disabled');
+
+      }
+    }
+    
+
+});
+
+        
+      });
+      
+      function myFunction() {
+        var x = document.getElementById("payment").value;
+        if($('#get_val').val()=="cash" )
+        {
+          
+          $('#payment').val($('#get_total').val());
+          $('.submitbtn').removeAttr('disabled');
+        }else if($('#get_val').val()=="cash" && x==0)
+        {
+          $('.submitbtn').attr('disabled','disabled');
+        }
+    
+  
+
+
+    
+}
+   
+function addbtn(){
+  if($('#get_val').val()=="cash")
+  {
+  $('#payment').val($('#get_total').val());
+  $('#payment').attr('disabled','disabled');
+  $('.submitbtn').removeAttr('disabled');
+  }
+}    
+</script>
 <script>
 
 
@@ -334,7 +405,7 @@ var app = new Vue({
     show_product: function (key,id) {
       $.get("../../ztrader/product/"+id,function(data, status){
         $('#'+key+'_pi').attr("src","{{ URL::asset('img/product/') }}/"+data.image); 
-        $('#'+key+'_pn').html(data.name); 
+        $('#'+key+'_pn').html(data.name,); 
         $('#'+key+'_pm').html(data.model);    
         $('#'+key+'_gsp').html(data.sale_price);    
         $('#'+key+'_lsp').html(data.current_stock);    
@@ -351,8 +422,8 @@ var app = new Vue({
       $.each(data, function(key,val){
         console.log(val);
         var result = val.name.split(".");
-console.log(result[0]);
-        $("#users_list").append("<option value='"+val.id+"' id='user_"+val.id+"'>"+result[0]+" "+result[1]+"</option>");
+
+        $("#users_list").append("<option value='"+val.id+"' id='user_"+val.id+"'>"+result[0]+" "+result[1]+" "+val.current_bal+"</option>");
       });  
     });
 

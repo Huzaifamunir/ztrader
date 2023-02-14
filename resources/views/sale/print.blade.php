@@ -10,6 +10,10 @@
 	<span class="btn back-btn" id="print_receipt">
 		<span class="mdi mdi-printer"></span>
 	</span>
+
+  <span class="btn back-btn" >
+    PDF
+	</span>
 </div>
 <div id="sale_receipt" class="col s12 m8 l8 offset-m2 offset-l2" style="padding:1%;background-color: white;">
   <!-- <div class="col s12" style="height:35px;"></div> -->

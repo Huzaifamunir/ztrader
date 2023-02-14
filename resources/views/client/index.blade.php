@@ -133,9 +133,9 @@
                     <th hidden>No#</th>
                     <th style="width:25%;">Client Name</th>
                     <th style="width:10%;">Mobile #</th>
-                    <th style="width:12%;">Email</th>
+                    <th style="width:15%;">Email</th>
                     <th style="width:10%;">City</th>
-                    <th style="width:20%;">Address</th>
+                    <th style="width:15%;">Address</th>
                     <th style="width:12%;">Current Balance</th>
                     <th >Action</th>
                 </tr>
@@ -149,7 +149,10 @@
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->mobileno }}</td>
                  <td>{{ $i->email }}</td>
-                 <td>{{$i->city_name}}</td>
+                  
+                 <?php $get_city=\App\Models\City::where(['id' => $i->city_id])->first();?>
+                
+                 <td>{{$get_city->name}}</td>
                  <td>{{$i->address}}</td>
                  <td>{{$i->current_bal}}</td>
                  <td>

@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
      Route::get('/product_list', [App\Http\Controllers\StockController::class, 'product_list'])->name('product_list');
 
 
-    //  Route::get('get_user_cash/{id}/{amount}', [App\Http\Controllers\SaleController::class, 'get_user_cash'])->name('get_user_cash');
+     Route::get('get_cash_user/{id}', [App\Http\Controllers\SaleController::class, 'get_cash_user'])->name('get_cash_user');
 
 
      Route::resource('country','App\Http\Controllers\CountryController');

@@ -182,13 +182,9 @@
                  <td>{{ $i->company_name }}</td>
                  <td>{{$i->mobileno}}</td>
                  <td>{{$i->address}}</td>
-                 <td>
-                    <?php $get_provider=\App\Models\City::where(['name' => $i->name])->first();
-                     
-                    ?>
-                       {{-- {{ dd($get_provider) }} --}}
-                {{-- {{ $get_provider->name }}  --}}
-                 </td>
+                 <?php $get_city=\App\Models\City::where(['id' => $i->city_id])->first();?>
+                
+                 <td>{{$get_city->name}}</td>
                  {{-- <td>{{$i->mobileno}}</td> --}}
                  <td>
 

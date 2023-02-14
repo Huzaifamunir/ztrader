@@ -54,6 +54,7 @@ class SaleController extends Controller
   public function store(Request $request)
     {   
         
+        
         $client = User::find($request->client_id);
      
        
@@ -167,8 +168,10 @@ return redirect('sale');
         ];
 
         $Cities = City::where('company_id','=', Auth::user()->company_id)->get();
+
+        $banks = Bank::all();
         
-        return view('sale/form',compact('form','Sale','Cities'));
+        return view('sale/form',compact('form','Sale','Cities', 'banks'));
     }
 
     public function update(Request $request, $id)
@@ -263,8 +266,16 @@ return redirect('sale');
 
     public function destroy(Request $request, $id)
     {  
+        
         //  return redirect('ud');
         $Sale=Sale::findOrFail($id);
+        // dd($Sale->total_amount);
+        $update_current_bal=User::where('id',$Sale->client_id)->first();
+        // dd($update_current_bal->current_bal);
+        $bal=$update_current_bal->current_bal - $Sale->total_amount;
+        
+        $update_current_bal->current_bal=$bal;
+        $update_current_bal->save();
         $Sale->delete();
 
         $request->session()->flash('message.level', 'error');
@@ -295,20 +306,17 @@ return redirect('sale');
         return view('sale.print')->with(['Sale'=>$Sale]);
     }
 
-    // public function get_user_cash($id,$amount)
-    // {
+    public function get_cash_user($id)
+    {
         
-    //     $client = User::find($id);
-    //     $get_Client_name=explode('.',$client->name);
-    //     if($get_Client_name[0]=="cash" && $request->payment==0 )
-    //     {
-           
-    //     }
-    // }
+        $client = User::find($id);
+        
+        $get_Client_name=explode('.',$client->name);
+       
+        return response()->json([
+            "cash_user"=> $get_Client_name[0]
+         ],200);
+    }
 
 
-    // public function get_sale(Request $request)
-    // {
-    //     return view('sale.index');
-    // }
 }

@@ -3,17 +3,27 @@
 @section('section1')
   
 <br>
-<div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
-  <div id="hideExtra">
+
+<div class="col m8 l8 offset-m2 offset-l2">
+
   <a class="btn back-btn" href="{{ url(URL::previous()) }}">
     <span class="mdi mdi-arrow-left"></span>
   </a>
-  <a class="btn back-btn" href="{{ route('payment.index') }}">
+  {{-- <a class="btn back-btn" href="{{ route('payment.index') }}">
     <span class="mdi mdi-menu"></span>
-  </a>
+  </a> --}}
   <a class="btn back-btn" href="javascript:;" onclick="printPayment()">
-    print
+    <span class="mdi mdi-printer"></span>
   </a>
+
+  <a class="btn back-btn" >
+    PDF 
+  </a>
+
+</div>
+<div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
+  <div id="hideExtra">
+
 </div>
   @if($Payment==NULL) 
     <center>
@@ -31,6 +41,8 @@
           <th>Date</th>
           <td>{{ $Payment['created_at']->format('d-M-Y') }}</td>
         </tr>
+
+        {{-- {{ dd($balance) }} --}}
         <tr>
           <th>Received By</th>
           <?php $get_receiver=\App\Models\User::where(['id' => $Payment->receiver_id])->first();
@@ -59,16 +71,26 @@
               &#40;{{ $Payment['remarks'] }}&#41;
             </td>
           @else
-            <td>{{ $Payment['transaction_mode'] }}</td>
+          <?php $get_bank=\App\Models\Bank::where(['bank_id' => $Payment->transaction_mode])->first();
+         
+          ?>
+            <td>{{ $get_bank->bank_name }}</td>
           @endif
         </tr>
         <tr>
-          <th>Amount</th>
+          <th>Recive Amount</th>
           <td>{{ $Payment['amount'] }}</td>
+        </tr>
+
+        {{-- {{ dd($balance) }} --}}
+
+        <tr>
+          <th>Current_Balance</th>
+          <td>{{ $balance->current_bal }}</td>
         </tr>
         <!-- <tr>
           <th>Remarks</th>
-          <td>{{ $Payment['remarks'] }}</td>
+          <td></td>
         </tr> -->
 
         <!-- <tr>
