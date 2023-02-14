@@ -34,7 +34,7 @@ class PaymentController extends Controller
         //     return $Payments;
         // }
         $i=1;
-        $Payments = Payment::orderBy('updated_at','desc')->get();
+        $Payments = Payment::where('company_id',Auth::user()->company_id)->orderBy('updated_at','desc')->get();
 
         $clients_name = User::role('Client')->where('company_id', '=', Auth::user()->company_id)->first();      
 
