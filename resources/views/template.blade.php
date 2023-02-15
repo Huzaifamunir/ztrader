@@ -8,7 +8,7 @@
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
-      <title>{{ config('app.name') }}</title>
+      <title>ZR Tzraders</title>
 
       <link rel="icon" type="image/png" href="{{ URL::asset('public/materialize/img/favicon/fav.png') }}">
       <link rel="stylesheet" href="{{ URL::asset('public/css/materialize.min.css') }}" />
@@ -16,6 +16,15 @@
       <link rel="stylesheet" href="{{ URL::asset('public/css/materialdesignicons.min.css') }}" />
       <link rel="stylesheet" href="{{ URL::asset('public/css/custom.css') }}" />
       <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+
+
+      <link rel="stylesheet" href="{{ asset('public/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css') }}"/>
+      <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 <style>
     table.dataTable {
     width: 100% !important;
@@ -31,7 +40,7 @@
           <div class="nav-wrapper">
             <a href="#" class="brand-logo center">
               <span class="thin">
-                ZR Erorex
+                ZR Traders
               </span>
             </a>
 
@@ -52,7 +61,7 @@
 
               <li class="thin tooltipped" data-position="right" data-delay="800" data-tooltip="BreadCrumbs">
 
-                <span>ZR_Erorex</span>
+                <span>ZR_Traders</span>
 
                 @for($i = 1; $i <= count(Request::segments()); $i++)
                   &nbsp;&#47;&nbsp;{{Request::segment($i)}}
@@ -137,6 +146,7 @@
         <script src="{{ URL::asset('public/js/vue.js') }}"></script>
         <script src="{{ URL::asset('public/js/custom.js') }}"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
 
         <!--                -->
         <!-- Flash Messages -->

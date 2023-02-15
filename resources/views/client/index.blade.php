@@ -143,20 +143,30 @@
             <tbody>
             
                  @foreach ($client as $i )
-                 {{-- {{ dd($i) }} --}}
+                 {{-- {{ dd($i->city_id) }} --}}
                 <tr>
                  <td hidden></td>
                  <td>{{ $i->name }}</td>
                  <td>{{ $i->mobileno }}</td>
                  <td>{{ $i->email }}</td>
-                  
+
+                 @if ($i->city_id == null)
+
+                 <td></td>
+                     
+                 @else
+
                  <?php $get_city=\App\Models\City::where(['id' => $i->city_id])->first();?>
+               
+                 <td>{{ $get_city->name }}</td>
+
+                 @endif
+                  
                 
-                 <td>{{$get_city->name}}</td>
                  <td>{{$i->address}}</td>
                  <td>{{$i->current_bal}}</td>
                  <td>
-                    <a style="font-size:20px;" class="action-btn single-btn" href="">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('ledger',$i->id) }}">
                         <span class="mdi mdi-script"></span>
                     </a>
                     <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('client_edit',$i->id)}}">

@@ -49,9 +49,6 @@
     display: flex;
 }
 
-table.dataTable tbody td{
-    padding: 20px 10px !important;
-}
 @media(max-width:490px){
     .searchnav{
         min-height:110px !important;
@@ -63,76 +60,76 @@ table.dataTable tbody td{
     }
    
 }
+table .sorting:nth-child(2){
+    min-width:200px;
+}
+
+table.dataTable tbody td{
+    padding: 20px 10px !important;
+}
 </style>
 @section('section1')
   
   <br>
-  @component('components.index_header', ['entity'=>'sale'])
+  @component('components.index_header', ['entity'=>'product'])
     @slot('column_list')
       <div class="input-field col s5">
         {!! Form::select('column', [
-          'bill_no' => 'Bill #', 
-        ], 'bill_no', ['placeholder' => 'Select Column', 'required' => 'required']) !!}  
+          'name' => 'Name', 
+          'model' => 'Model',
+          'purchase_price' => 'Purchase Price',
+          'sale_price' => 'Sale Price',
+          'current_stock' => 'Current Stock',
+        ], null, ['placeholder' => 'Select Column', 'required' => 'required']) !!}  
       </div>
     @endslot
   @endcomponent
   
   <div class="z-depth-5" style="padding:1%;background-color: white;">
     
-    @if($Sales->isEmpty())
+    @if($Products->isEmpty())
 
       <center>
         <h3 class="thin">No Record Found !</h3>
       </center>  
     @else
 
-      <table class="highlight bordered display" id="saleTable">
-        
+      <table class="highlight bordered display" id="productTable">
         <caption>
           <h3 class="thin">
-            <span class="mdi mdi-script"></span>
-            Sale
+            <span class="mdi mdi-apple-keyboard-command"></span>
+            Products
           </h3>
         </caption>
-        
         <thead>
           <tr>
-              <th hidden>No#</th>
-            <th style="padding-right: 10px;">Date</th>
-            <th style="padding-right: 10px;">Bill #</th>
-            <th style="padding-right: 120px;">Client</th>
-            <th style="padding-right: 10px;">Seller</th>
-            
-            <th style="padding-right: 10px;">Total Amount</th>
-            <th style="padding-right: 10px;">Action</th>
+              <th>Main Category</th>
+              <th>Model</th>
+              <th>SubCategory</th>
+              <th>Purchase Price(Rs.)</th>
+              <th>Sale Price(Rs.)</th>
+              <th>Current Stock</th>
+              <th>Action</th>
           </tr>
-        </thead>
-            @php Carbon\Carbon::setLocale('de') @endphp
+        </thead>  
+
         <tbody>
-            
-          @foreach($Sales as $Sale)
-          <?php $get_Client=\App\Models\User::where(['id' => $Sale->client_id])->first();
-                    $get_Client=explode('.',$get_Client->name);
-
-                    $get_Seller=\App\Models\User::where(['id' => $Sale->seller_id])->first();
-                    // $get_Seller=explode('.',$get_Seller->name);
-                ?>
-
-      
+          @foreach($Products as $Product)
             <tr>
-                <td hidden>{{$i++}}</td>
-              <td>{{ $Sale->created_at->format('d-M-Y') }}</td>
-              <td>ZR_{{ str_pad($Sale['id'], 3, "0", STR_PAD_LEFT) }}</td>
-              <td>{{ $get_Client[0]}} </td>
-              
-              <td>{{ $get_Seller->name }}</td>
-              <!-- <td>{{ $Sale->total_sets }}</td> -->
-              <td>{{ $Sale['total_amount'] }}</td>
+              <!--<th>-->
+              <!--  <img src="{{ URL::asset('img/product/'.$Product['image']) }}" class="responsive-img materialboxed" data-caption="{{ $Product['name'] }}" style="height:100px;width:100px;">-->
+              <!--</th>-->
+              <td>{{  \App\MainCategory::where(['id' => $Product['sub_category_id']])->pluck('name')->first() }}</td>
+              <td>{{ $Product['model'] }}</td>
+              <td>{{  \App\SubCategory::where(['id' => $Product['name']])->pluck('name')->first() }}</td>
+              <td>{{ $Product['purchase_price'] }}</td>
+              <td>{{ $Product['sale_price'] }}</td>
+              <td>{{ $Product['current_stock'] }}</td>
               <td>
-                <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('sale.edit', [ $Sale['id']]) }}">
+                <a class="action-btn edit-btn" href="{{ route('product.edit', ['id' => $Product['id']]) }}">
                   <span class="mdi mdi-pen"></span>
                 </a>
-                <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('sale.show', [ $Sale['id']]) }}">
+                <a class="action-btn single-btn" href="{{ route('product.show', ['id' => $Product['id']]) }}">
                   <span class="mdi mdi-chevron-right"></span>
                 </a>
               </td>
@@ -141,13 +138,14 @@ table.dataTable tbody td{
         </tbody>
       </table>
     @endif  
-    
+    <!-- ->appends(Request::except('page')) -->
+    {{ $Products->appends(Request::except('page'))->links() }}
   </div>  
 @stop 
  <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
   <script>
       $(document).ready(function () {
-    $('#saleTable').DataTable({
+    $('#productTable').DataTable({
          "pageLength":25,
                 order: [[0, 'asc']],
         dom: '<"toolbar">frtip',

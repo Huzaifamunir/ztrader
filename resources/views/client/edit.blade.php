@@ -88,16 +88,20 @@
               </div>
 
               <div class="input-field col s6">
-                <select selected name="city_id" required >
-                  <option selected>City </option>
-
-                  @foreach ($city as $item)
-
-                  <option value="{{ $item->id }}">{{ $item->name }}</option>
-
-                    
-                  @endforeach
-             </select>
+                <div id="client_list_">
+                  
+                  <input type="text" list="city_id" name="city_id" v-model="payer_id">
+                  <label class="active">City</label>
+              
+                </div>
+      
+                  <datalist id="city_id">
+                    @foreach ($city as $item)
+  
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                      
+                    @endforeach
+                  </datalist>
 
               </div>
 

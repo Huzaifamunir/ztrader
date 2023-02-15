@@ -10,6 +10,7 @@ use App\Models\Person;
 use App\Models\Voucher;
 use App\Models\Payment;
 use App\Models\Bank;
+use App\Models\Transiction;
 use Illuminate\Http\Request;
 use App\core\HelperFunction;
 
@@ -62,7 +63,17 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {   
-        
+       
+
+$bank_name=Bank::where('bank_id',$request->transaction_mode)->first();
+        $add_tra=Transiction::create([
+            'bank_id'=>$request->transaction_mode,
+            'trans_date'=>date('y-m-d'),
+            'trans_operator'=>'+',
+            'amount'=>$request->amount,
+            'trans_description'=>$bank_name->bank_name,
+            'client_id'=>$request->client_id,
+        ]);
 
         $client = $request->client_id;
         

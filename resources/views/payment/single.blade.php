@@ -6,25 +6,28 @@
 
 <div class="col m8 l8 offset-m2 offset-l2">
 
-  <a class="btn back-btn" href="{{ url(URL::previous()) }}">
+  <a style="background-color: #0D47A1; color:#fff;" class="btn back-btn" href="{{ url(URL::previous()) }}">
     <span class="mdi mdi-arrow-left"></span>
   </a>
-  {{-- <a class="btn back-btn" href="{{ route('payment.index') }}">
-    <span class="mdi mdi-menu"></span>
-  </a> --}}
-  <a class="btn back-btn" href="javascript:;" onclick="printPayment()">
+
+  <a style="background-color: #0D47A1; color:#fff;" class="btn back-btn" href="javascript:;" onclick="printPayment()">
     <span class="mdi mdi-printer"></span>
   </a>
 
-  <a class="btn back-btn" >
-    PDF 
-  </a>
+  <a style="background-color: #0D47A1; color:#fff;" id="download-button" class="btn back-btn" data-position="bottom" data-delay="200"
+  data-tooltip="PDF">
+  <span>PDF</span></a>
 
 </div>
-<div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
+
+
+<div id="paymentpdf">
+
+
+  <div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
   <div id="hideExtra">
 
-</div>
+  </div>
   @if($Payment==NULL) 
     <center>
       <h3 class="thin">No Record Found !</h3>
@@ -109,7 +112,14 @@
       </tbody>
     </table>
   @endif  
+ </div>
+  </div>
+
 </div>
+
+
+
+
 <script type="text/javascript">
   
   function printPayment() {
@@ -117,5 +127,20 @@
    //x.style.visibility = "hidden";
     window.print();
   }
+</script>
+
+
+<script>
+  const button = document.getElementById('download-button');
+
+  function generatePDF() {
+      // Choose the element that your content will be rendered to.
+      const element = document.getElementById('paymentpdf');
+      // Choose the element and save the PDF for your user.
+      html2pdf().from(element).save();
+  }
+
+  button.addEventListener('click', generatePDF);
+
 </script>
 @stop 

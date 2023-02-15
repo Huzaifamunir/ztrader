@@ -19,14 +19,24 @@ class ProfileController extends Controller
 
     public function editprofile(Request $request)
     {
-
         // dd($request->all());
+
+        $rand=rand(111111111,999999999);
+        $file = $request->image;
+  
+        $fileName = time().rand(100,1000).'.'.$file->extension();  
+    
+
+        $file->move(public_path('logo'), $fileName);
+       
+
         $id = Auth::user()->id;
-        // dd($id);
+   
         $user = User::find($id);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->image = $fileName;
 
         if ($request->password == null) {
             

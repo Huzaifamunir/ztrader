@@ -17,17 +17,6 @@
       @include('partials/_errors')
 
         <div>
-          {{-- <div class="input-field col s12 m6 l6">
-            <select name="user_type" id="client_type" required>
-              <option  value="RC" selected>Client Name</option>
-              @foreach ($client as  $item)
-
-              <option name="client_id">{{ $item->name }}</option>
-                
-              @endforeach
-            
-            </select>      
-          </div> --}}
 
           <div class="input-field col s12 m6 l6" id="rc_container">
             <input type="text" list="users_list" id="get_user" name="client_id" v-model="client_id">
@@ -195,19 +184,13 @@
                 <input id="get_val" type="text" hidden>
                 <strong>Payment</strong>
                 <p>
-                  <input type="number" id="payment" oninput="myFunction()" name="payment" v-model="payment" step="0.00" min="0" :max="total_amount">
+                  <input tyep="text" value="" name="payment" id="pay" hidden>
+                  <input type="number" class="payment" value=""  oninput="myFunction()" name="payment" v-model="payment" step="0.00" min="0" :max="total_amount">
                 </p>
                 <br>
               </div>
             </div>  
           </div>
-
-          <!-- <div class="col s12 m6 offset-m6">
-            <div class="input-field col s6">
-              <input type="number" name="payment" value="0" step="0.00" min="0" v-bind:max="total_amount">
-              <label class="active">Payment</label>
-            </div>
-          </div> -->
         </div>
 
         <div class="col s12 m12 l12"></div>
@@ -242,14 +225,15 @@ $.ajax({
     type:'GET',
     success:function(response){
       console.log(response.cash_user);
-      if(response.cash_user=="cash")
+      if(response.cash_user=="Cash")
       {
-        $('#payment').val($('#get_total').val());
-  $('#payment').attr('disabled','disabled');
-        $('#get_val').val('cash');
+
+        $('.payment').val($('#get_total').val());
+        $('.payment').attr('disabled','disabled');
+        $('#get_val').val('Cash');
         $('#payment_type_cash').hide();
         
-          if($('#payment').val()==0)
+          if($('.payment').val()==0)
           {
           
           $('.submitbtn').attr('disabled','disabled');
@@ -257,7 +241,8 @@ $.ajax({
         }
       }else
       {
-        $('#payment').removeAttr('disabled');
+        
+        $('.payment').removeAttr('disabled');
         $('#get_val').val('');
         $('#payment_type_cash').show();
         $('.submitbtn').removeAttr('disabled');
@@ -273,12 +258,12 @@ $.ajax({
       
       function myFunction() {
         var x = document.getElementById("payment").value;
-        if($('#get_val').val()=="cash" )
+        if($('#get_val').val()=="Cash" )
         {
           
-          $('#payment').val($('#get_total').val());
+          $('.payment').val($('#get_total').val());
           $('.submitbtn').removeAttr('disabled');
-        }else if($('#get_val').val()=="cash" && x==0)
+        }else if($('#get_val').val()=="Cash" && x==0)
         {
           $('.submitbtn').attr('disabled','disabled');
         }
@@ -290,10 +275,12 @@ $.ajax({
 }
    
 function addbtn(){
-  if($('#get_val').val()=="cash")
+  
+  if($('#get_val').val()=="Cash")
   {
-  $('#payment').val($('#get_total').val());
-  $('#payment').attr('disabled','disabled');
+    $('#pay').val($('#get_total').val());
+  $('.payment').val($('#get_total').val());
+  $('.payment').attr('disabled','disabled');
   $('.submitbtn').removeAttr('disabled');
   }
 }    
@@ -335,7 +322,7 @@ var app = new Vue({
           },
         @endforeach
       @else 
-        // { id: 1, product_id: 1, product_name: 'some_name', price_per_unit: 100, quantity: 2, sub_total: 200 }
+
       @endif
     ],
     products_list:null
@@ -454,8 +441,6 @@ var app = new Vue({
     });
 
     $("form").submit(function(){
-    /*  app.add_new_item();
-      return false; */
 
       if(app.items_count==0){
         Materialize.toast('Please add atleast one item in receipt.', 2000, 'orange');

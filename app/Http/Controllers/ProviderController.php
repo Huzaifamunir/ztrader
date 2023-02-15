@@ -47,6 +47,7 @@ class ProviderController extends Controller
       
       // dd($request->all());
         $client=User::find($request->id);
+     
         $client->name=$request->first_name.'.'.$request->last_name;
 
         if(isset($request->start_bal)){

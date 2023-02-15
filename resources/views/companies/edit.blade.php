@@ -2,13 +2,19 @@
 
 
 @section('content')
-<div class="row">
+<div class="row" style="justify-content:center;">
+    <div class="col-6">
+
+<div class="form-div">
+<div class="row" style="color: #fff;
+padding: 20px;
+background: #0d47a1;">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Edit New User</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('companies.index') }}">Back</a>
         </div>
     </div>
 </div>
@@ -28,30 +34,45 @@
 
 {!! Form::model($user, ['method' => 'PATCH','route' => ['companies.update', $user->id]]) !!}
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
             <input type="text" value="{{$user->company_name}}" class="form-control" name="company_name" placeholder="Enter Company Name">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
             <input type="email" value="{{$user->company_email}}" class="form-control" name="company_email" placeholder="Enter Company Email">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
-            <input type="number" value="{{$user->company_phoneno}}" class="form-control" name="company_phoneno" placeholder="Enter Company Phoneno">
+            <input type="tel" value="{{$user->company_phoneno}}" class="form-control" name="company_phoneno" placeholder="Enter Company Phoneno">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
             <input type="password" value="{{$user->company_password}}" class="form-control"  name="company_password" placeholder="Enter Company Password">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" style="display:flex; justify-content:space-between">
+
+        <div>
         <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+
+        <div  style="margin-left:370px;">
+
+        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+
+        </div>
+
+
+
     </div>
+    
 </div>
 {!! Form::close() !!}
 
 @endsection
+</div></div></div>

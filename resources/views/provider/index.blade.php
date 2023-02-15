@@ -182,10 +182,19 @@
                  <td>{{ $i->company_name }}</td>
                  <td>{{$i->mobileno}}</td>
                  <td>{{$i->address}}</td>
+
+                 @if ($i->city_id == null)
+
+                 <td></td>
+
+                 @else
+
                  <?php $get_city=\App\Models\City::where(['id' => $i->city_id])->first();?>
+            
+                  <td>{{$get_city->name}}</td>
+                     
+                 @endif
                 
-                 <td>{{$get_city->name}}</td>
-                 {{-- <td>{{$i->mobileno}}</td> --}}
                  <td>
 
                 

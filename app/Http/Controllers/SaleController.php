@@ -17,6 +17,7 @@ use App\Models\SaleItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Core\HelperFunction;
+use App\Models\Transiction;
 use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
@@ -54,6 +55,14 @@ class SaleController extends Controller
   public function store(Request $request)
     {   
         
+      
+
+       if($request->client_id==1)
+       {
+        $request->session()->flash('message.level', 'error');
+        $request->session()->flash('message.content', 'Please Select Client !');
+        return back();
+       }
         
         $client = User::find($request->client_id);
      
@@ -99,6 +108,7 @@ $sum=$sum+$result[$i];
 
 
 $balance = $input['total_amount']-$input['payment'];
+
 if($balance>0){
     $client->increment('current_bal',$balance);
 }
@@ -107,9 +117,10 @@ if($balance>0){
 if($input['payment']>0){
     $payment_input = [
         'receiver_id' => $input['seller_id'],
-        'payer_id' => $client['user_id'],
+        'payer_id' => $request->client_id,
         'date' => Carbon::Now(),
-        'transaction_mode' => 'Cash',
+        'company_id'=>Auth::user()->company_id,
+        'transaction_mode' => $request->transaction_mode,
         'amount' => $input['payment'],
         'remarks' => 'Payment with sale.',
     ];
@@ -129,6 +140,17 @@ $update=Sale::where('id',$Sale->id)->first();
 $update->company_id= Auth::user()->company_id;
 $update->save();
 
+$bill=str_pad($Sale->id, 3, "0", STR_PAD_LEFT);
+
+$add_tra=Transiction::create([
+    'bank_id'=>$request->transaction_mode,
+    'trans_date'=>date('y-m-d'),
+    'trans_operator'=>'-',
+    'amount'=>$request->total_amount,
+    'sale_id'=>$Sale->id,
+    'trans_description'=>'Invoice ZR_'.$bill,
+    'client_id'=>$request->client_id,
+]);
 
 $Sale->items()->createMany($sale_items);
 
@@ -144,17 +166,9 @@ return redirect('sale');
 
     public function show($id)
     {       
-       
-        // $Sale = Sale::with('items.product','client','seller','payment')->find($id);
-        // $data=array();
-        // $keys=array('sale','sale_item','product');
+      
         $Sale=Sale::find($id);
         $sale_item=SaleItem::where('sale_id',$Sale->id)->get();
-        // foreach ($sale_item as $sale) {
-        //     $product=Product::where('id',$sale->product_id)->first();
-        //     array_push($data,array_combine($keys,[$sale,$sale_item,$product]));
-        // }
-        // dd($data);
         return view('sale/print', compact('Sale','sale_item'));
     }
     public function edit($id)
@@ -186,14 +200,11 @@ return redirect('sale');
         $old_items = $Sale['items'];
         $new_items = [];
         
-        // delete old items
         foreach ($old_items as $key => $item) {
-            // add product back to stock
             $product = Product::find($item['product_id']);
             $new_stock = $product['current_stock']+$item['quantity'];
             $product->update(['current_stock'=>$new_stock]);
 
-            // delete item
             $sale_item = SaleItem::find($item['id']);        
             $sale_item->delete();
         }
@@ -216,20 +227,19 @@ return redirect('sale');
         }
 
 
-        // Client balance update check
         if($Sale['payment']!=null){
             $previous_bill = $Sale['total_amount']-$Sale['payment']['amount'];  
         }
         else{
             $previous_bill = $Sale['total_amount'];
         }
-        //return $previous_bill;
+
         if($previous_bill!=null){
             $client->decrement('current_bal',$previous_bill);
         }
         $Sale->payment()->delete();
 
-        // Payment Update
+
         if($input['payment']>0){
             $payment_input = [
                 'receiver_id' => $input['seller_id'],
@@ -267,11 +277,11 @@ return redirect('sale');
     public function destroy(Request $request, $id)
     {  
         
-        //  return redirect('ud');
+
         $Sale=Sale::findOrFail($id);
-        // dd($Sale->total_amount);
+
         $update_current_bal=User::where('id',$Sale->client_id)->first();
-        // dd($update_current_bal->current_bal);
+
         $bal=$update_current_bal->current_bal - $Sale->total_amount;
         
         $update_current_bal->current_bal=$bal;

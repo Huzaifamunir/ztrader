@@ -10,17 +10,13 @@
   <span class="mdi mdi-arrow-left"></span>
 </a>
 
-<span class="btn back-btn" id="print_receipt">
-  <span class="mdi mdi-printer"></span>
-</span>
-
-<span class="btn back-btn" >
-  PDF
-</span>
+<a id="download-button" class="btn back-btn" data-position="bottom" data-delay="200"
+data-tooltip="PDF">
+<span>PDF</span></a>
 
 </div>
-
-<div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
+<div  id="stockpdf">
+  <div class="col s12 m8 l8 offset-m2 offset-l2 z-depth-5" style="padding:3%;background-color: white;">
 
 
 
@@ -114,33 +110,22 @@
       </tfoot>
     </table>
   @endif
+  </div>
 </div>
 
-@stop
 
-@section('page_scripts')
-<script src="{{ URL::asset('js/printThis.js') }}"></script>
 <script>
-$("#print_receipt").click(function(){
-	$("#sale_receipt").printThis({
-	  debug: false,               // show the iframe for debugging
-	  importCSS: true,            // import page CSS
-	  importStyle: true,          // import style tags
-	  printContainer: true,       // grab outer container as well as the contents of the selector
-	  loadCSS: "path/to/my.css",  // path to additional css file - use an array [] for multiple
-	  pageTitle: "",              // add title to print page
-	  removeInline: false,        // remove all inline styles from print elements
-	  printDelay: 333,            // variable print delay
-	  header: null,               // prefix to html
-	  footer: null,               // postfix to html
-	  base: false ,               // preserve the BASE tag, or accept a string for the URL
-	  formValues: true,           // preserve input/form values
-	  canvas: false,              // copy canvas elements (experimental)
-	  doctypeString: false,       // enter a different doctype for older markup
-	  removeScripts: false,       // remove script tags from print content
-	  copyTagClasses: false       // copy classes from the html & body tag
-	});
-});
+  const button = document.getElementById('download-button');
+
+  function generatePDF() {
+      // Choose the element that your content will be rendered to.
+      const element = document.getElementById('stockpdf');
+      // Choose the element and save the PDF for your user.
+      html2pdf().from(element).save();
+  }
+
+  button.addEventListener('click', generatePDF);
+
 </script>
 
 @stop

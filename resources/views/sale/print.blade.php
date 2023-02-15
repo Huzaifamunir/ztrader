@@ -4,18 +4,23 @@
   
 <br>
 <div class="col m8 l8 offset-m2 offset-l2">
-	<a class="btn back-btn" href="{{ url(URL::previous()) }}">
+	<a style="background-color: #0D47A1; color:#fff;" class="btn back-btn" href="{{ url(URL::previous()) }}">
 		<span class="mdi mdi-arrow-left"></span>
 	</a>
-	<span class="btn back-btn" id="print_receipt">
+	<span style="background-color: #0D47A1; color:#fff;" class="btn back-btn" id="print_receipt">
 		<span class="mdi mdi-printer"></span>
 	</span>
 
-  <span class="btn back-btn" >
-    PDF
-	</span>
+  <a style="background-color: #0D47A1; color:#fff;" id="download-button" class="btn back-btn" data-position="bottom" data-delay="200"
+  data-tooltip="PDF">
+  <span>PDF</span></a>
+
 </div>
-<div id="sale_receipt" class="col s12 m8 l8 offset-m2 offset-l2" style="padding:1%;background-color: white;">
+
+
+<div id="salepdf">
+
+  <div id="sale_receipt" class="col s12 m8 l8 offset-m2 offset-l2" style="padding:1%;background-color: white;">
   <!-- <div class="col s12" style="height:35px;"></div> -->
 
   <div class="row">
@@ -122,9 +127,13 @@
   </div>  
 
   <div class="col s12" style="height:35px;"></div>
+  </div>
+
 </div>
 
 @stop 
+
+
 
 @section('page_scripts')
 <script src="{{ URL::asset('js/printThis.js') }}"></script>
@@ -149,5 +158,19 @@ $("#print_receipt").click(function(){
 	  copyTagClasses: false       // copy classes from the html & body tag
 	});
 });
+</script>
+
+<script>
+  const button = document.getElementById('download-button');
+
+  function generatePDF() {
+      // Choose the element that your content will be rendered to.
+      const element = document.getElementById('salepdf');
+      // Choose the element and save the PDF for your user.
+      html2pdf().from(element).save();
+  }
+
+  button.addEventListener('click', generatePDF);
+
 </script>
 @stop

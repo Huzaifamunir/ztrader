@@ -3,7 +3,7 @@
      <div class="navbar">
         <center>
             <br>
-            <img style="height: 88px;" sty src="{{ URL::asset('public/img/logo.png') }}">
+            <img style="height: 88px;" sty src="{{ URL::asset('public/logo/'.Auth::user()->image) }}">
         </center>
      </div>
 

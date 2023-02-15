@@ -3,10 +3,10 @@
 @section('section1')
 
 
-<div class="class="z-depth-5" style="padding:1%;background-color: white;"">
+<div class="class="z-depth-5" style="padding:1%;background-color: white; margin-top:100px;">
 
 
-<form method="post" action="{{ route('editprofile') }}">
+<form method="post" action="{{ route('editprofile') }}" enctype="multipart/form-data">
 
     @csrf
 
@@ -29,8 +29,17 @@
       <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
 
+    <div class="form-group">
+      <input type="file" name="image" >
+    </div>
+
    
+    <div style="margin-top:10px;">
+
     <button type="submit" class="btn btn-primary">Submit</button>
+
+    </div>
+
   </form>
 
 </div>

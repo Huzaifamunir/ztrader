@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
+
 class CompanyController extends Controller
 {
         /**
@@ -21,6 +22,9 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $data = Company::all();
+
+        // $user = User::where()
+
         return view('companies.index',compact('data'));
     }
 
@@ -32,6 +36,9 @@ class CompanyController extends Controller
     public function create()
     {
         $roles = Role::all();
+
+        // dd($roles);
+
         return view('companies.create',compact('roles'));
     }
 
@@ -43,19 +50,17 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $this->validate($request, [
-        //     'name' => 'required|unique:permissions,name',
-        // ]);
+        
          $company = Company::create([
             'company_name' => $request->input('company_name'),
+            'name' => $request->input('company_username'),
             'company_phoneno' => $request->input('company_phoneno'),
             'company_address' => $request->input('company_address'),
             'company_email' => $request->input('company_email'),
-            // 'company_password' => $request->input('company_password'),
+            'company_password' => $request->input('company_password'),
          ]);
-
-            $role = 'admin';
+         
+            $roleadmin = 'admin';
 
              $user = User::create([
                  'company_id' => $company->id,
@@ -64,6 +69,9 @@ class CompanyController extends Controller
                  'address' => $request->company_address,
                  'password' => Hash::make($request->input('company_password')),
              ]);
+            
+
+            //  dd($user);
 
              
              
@@ -78,7 +86,22 @@ class CompanyController extends Controller
                      'name' => $i
                     ]);
                 }
-                $user->assignRole($role);
+                $user->assignRole($roleadmin);
+
+                $cash_client = User::create([
+                    'company_id' => $company->id,
+                    'name' => 'Cash.Client',
+                    'email' => 'cash@gmail.com',
+                    'address' => 'cash',
+                    'start_bal'=>0,
+                ]);
+
+                
+            $role=Role::where('name','=','Client')->where('company_id',$company->id)->first();
+            $cash_client->assignRole($role->name);
+            $db= DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?,?,?)', [$role->id,'App\Models\User',$cash_client->id]);
+            
+
      return redirect()->route('companies.index')
                         ->with('success','Company created successfully');
     }
@@ -90,9 +113,19 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        $user = Company::find($id);
-        return view('companies.show',['user'=>$user]);
+        // dd($id);
+        $company = Company::find($id);
+        // dd($company);
+        $user = User::where('email', '=', $company->company_email)->first();
+        
+            if (empty($user)) {
+                abort(404);
+            }
 
+            if(Auth::loginUsingId($user->id)){
+                
+                return redirect('home');
+            }
     }
 
     /**

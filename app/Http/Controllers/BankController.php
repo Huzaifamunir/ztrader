@@ -10,9 +10,18 @@ class BankController extends Controller
 {
     public function show_bank(){
        
-        $bank = Bank::all();
+        $banks = Bank::all();
+        $data =array();
+        $keys = array('id','bank_name','balance');
+        foreach ($banks as $bank) {
+            $totaladd=Transiction::where('trans_operator','+')->where('bank_id',$bank->bank_id)->sum('amount');
+            $totalexpense=Transiction::where('trans_operator','-')->where('bank_id',$bank->bank_id)->sum('amount');
+            $profit=$totaladd-$totalexpense;
+            array_push($data,array_combine($keys,[$bank->bank_id,$bank->bank_name,$profit]));
+            
+        }
         
-    	return view('bank.Bank',compact('bank'));
+    	return view('bank.Bank',compact('data'));
     }
     
     

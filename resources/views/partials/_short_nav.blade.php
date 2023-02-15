@@ -127,20 +127,7 @@
                 </td>
               </tr>
 
-              <!-- <tr class="new_class">
-                <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Payment Index">
-                    <a href="#">
-                        <span class="mdi mdi-currency-eur font-dark">
-                           <span>Payment</span>
-                        </span>
-                    </a>
-                </td>
-                <td class="tooltipped" data-position="right" data-delay="500" data-tooltip="Receive payment">
-                    <a href="#">
-                        <span class="mdi mdi-plus-circle-outline font-dark"></span>
-                    </a>
-                </td>
-              </tr> -->
+
 
               <tr class="new_class">
                 <td class="tooltipped" data-position="right" data-delay="800" data-tooltip="Reports Index">

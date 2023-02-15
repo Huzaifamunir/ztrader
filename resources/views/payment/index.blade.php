@@ -144,14 +144,10 @@ table.dataTable tbody td{
                 </td>
               @else
 
-              {{-- {{ dd($clients_name) }} --}}
+              <?php $get_bank=\App\Models\Bank::where(['bank_id' => $Payment->transaction_mode])->first();?>
 
-              <?php $get_bank=\App\Models\Bank::where(['bank_id' => $Payment->transaction_mode])->get();?>
-
-              {{-- {{ dd($get_bank) }} --}}
               
-              <td></td>
-                {{-- <td>{{ $get_bank->bank_name }}</td> --}}
+                <td>{{ $get_bank->bank_name }}</td>
               @endif
 
               <td>

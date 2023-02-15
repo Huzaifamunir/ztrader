@@ -55,8 +55,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('show_bank',[App\Http\Controllers\BankController::class,'show_bank'])->name('show_bank');
     Route::post('Add_bank',[App\Http\Controllers\BankController::class,'Add_bank'])->name('Add_bank');
 
-    //route for transiction
-    //  Route::get('Show_Transiction_Form',[App\Http\Controllers\BankController::class,'Show_Transiction_Form'])->name('Show_Transiction_Form');
+
   
 
     //  Transiction Routes
@@ -88,13 +87,15 @@ Route::group(['middleware' => ['auth']], function() {
 
 
      Route::get('/main_category/search','App\Http\Controllers\MainCategoryController@search')->name('main_category.search');
-     // Route::get('/user_list','App\Http\Controllers\StockController@user_list');
      Route::get('/user_list', [App\Http\Controllers\StockController::class, 'user_list'])->name('user_list');
      Route::get('/product_list', [App\Http\Controllers\StockController::class, 'product_list'])->name('product_list');
 
 
      Route::get('get_cash_user/{id}', [App\Http\Controllers\SaleController::class, 'get_cash_user'])->name('get_cash_user');
 
+     Route::get('ledger/{id}', [App\Http\Controllers\LedgerController::class, 'index'])->name('ledger');
+     
+   
 
      Route::resource('country','App\Http\Controllers\CountryController');
      Route::resource('state','App\Http\Controllers\StateController');
@@ -108,7 +109,19 @@ Route::group(['middleware' => ['auth']], function() {
      Route::resource('product','App\Http\Controllers\ProductController');
      Route::resource('client','App\Http\Controllers\ClientController');
      Route::resource('bank','App\Http\Controllers\BankController');
-    //  Route::resource('transition','App\Http\Controllers\BankController');
+
+    Route::get('/dashboard/today_sales',[App\Http\Controllers\HomeController::class, 'today_sale'])->name('dashboard.today_sales');
+
+    Route::get('/dashboard/profit_loss',[App\Http\Controllers\HomeController::class, 'profit_loss'])->name('dashboard.profit_loss');
+
+	Route::post('/dashboard/profit_loss',[App\Http\Controllers\HomeController::class, 'profit_loss'])->name('dashboard.profit_loss');
     
+    Route::post('/dashboard/date_sales',[App\Http\Controllers\HomeController::class, 'date_sales'])->name('dashboard.date_sales');
+
+    Route::get('/dashboard/current_stock',[App\Http\Controllers\HomeController::class, 'current_stock'])->name('dashboard.current_stock');
+
+    Route::get('/dashboard/report',[App\Http\Controllers\HomeController::class, 'report'])->name('dashboard.report');
+
+    Route::get('/dashboard/product',[App\Http\Controllers\HomeController::class, 'product'])->name('dashboard.product');
 
     });

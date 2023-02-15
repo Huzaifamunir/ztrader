@@ -18,14 +18,6 @@
 
         {!! Form::hidden('company_id', Auth::User()->company_id) !!}
 
-        <!-- <div class="input-field col s6 m6 l6">
-          <select>
-            <option value="Client">Client</option>
-            <option value="Reseller">Reseller</option>
-          </select>
-          <label>Payemnt From</label>
-        </div> -->
-
         <div id="app" class="input-field col s6">
           @if($form['value']=='update')
             <h5>
@@ -63,19 +55,12 @@
           @endif
         </div> 
 
-        <!-- <div class="input-field col s12 m6 l6">
-          <input type="date" class="datepicker" name="date" value="{{ old('date') }}">        
-          <label for="date" class="active">Date</label>
-        </div>  -->
-
         <div class="input-field col s3">
           <select name="transaction_mode" id="payment_type">
             @foreach ($banks as $bank)
             <option value="{{ $bank->bank_id }}">{{ $bank->bank_name }}</option>
             @endforeach
-            <option value="Cash">Cash</option>
-            <!-- <option value="Cheque">Cheque</option> -->
-            <option value="Bank">Bank</option>
+            
           </select>
           <label>Transaction Mode</label>
         </div>
@@ -83,11 +68,6 @@
         <div class="input-field col s3">
           @component('components.text_field', ['field_name'=>'amount','field_label'=>'Amount'])
           @endcomponent
-        </div>
-
-        <div class="input-field col s12" id="remarks" style="display: none;">
-          <textarea id="comment" name="remarks" class="materialize-textarea"></textarea>
-          <label for="comment">Bank Details</label>
         </div>
    
         <div class="col s12 m12 l12"></div>

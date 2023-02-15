@@ -35,27 +35,7 @@ class ClientController extends Controller
 
     public function client_add(Request $request)
     {
-
-        
-         
-         // $rules = [
-         //     'first_name' => ['required','string'],
-         //     'last_name' => ['required','string'],
-         //     'mobile_no' => ['required','string'],
-         //     'city_id' => ['required','string'],
-         //     'current_bal' => ['nullable','string'],
-         //  ];
-         // $this->validate($request, $rules);
-         //   dd('hello');
-         //  $user = User::create([
-         //     'company_id' => Auth::user()->company_id,
-         //     'name' => $request->first_name.$request->last_name,
-         //     'mobileno' => $request->mobile_no,
-         //     'start_bal' => $request->start_bal,
-         //     'city_id' => $request->city_id,
-         //     'address' => $request->address,
-         //  ]);
-         // $array=array("Client","Provider");
+      // dd($request->all());
 
          $client=new User;
          $client->company_id= Auth::user()->company_id;
@@ -76,9 +56,6 @@ class ClientController extends Controller
          $client->city_id=$request->city_id;
          $client->address=$request->address;
          $client->assignRole($request->role);
-
-        //  $role=Role::where('company_id','=',Auth()->user()->company_id)->where('name','=','Client')->first();
-        //  DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?)', [$role->id, 'App\Models\User',$client->id]);
 
          if($client->save()){
             
@@ -118,7 +95,11 @@ class ClientController extends Controller
            return view('client.edit',compact('client','city'));
      }
 
-     public function client_update(Request $request){
+     public function client_update(Request $request)
+     {
+
+
+      // dd($request->all());
 
         $client=User::find($request->id);
         $client->name=$request->first_name.'.'.$request->last_name;

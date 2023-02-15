@@ -64,7 +64,7 @@
             <th></th>
             <td>
 
-              <a class="btn" href="">Ledger</a>
+              <a class="btn" href="{{ route('ledger',$user->id) }}">Ledger</a>
               
               <a class="btn edit-btn" href="{{ route('client_edit',$user->id)}}">
                 <span class="mdi mdi-pen"></span> Edit

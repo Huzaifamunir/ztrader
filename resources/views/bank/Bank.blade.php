@@ -30,23 +30,23 @@
 
         <tbody>
 
-            @foreach ($bank as $banks)
+            @foreach ($data as $Bank)
 
             <tr>
-                <td>{{ $banks->bank_name }}</td>
-                <td>{{ $banks->bank_balance }}</td>
+                <td>{{$Bank['bank_name']}}</td>
+                <td>{{$Bank['balance']}}</td>
                 <td>
-                    <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('bank.edit', [ $banks['bank_id']]) }}">
+                    <a style="font-size:20px;" class="action-btn edit-btn" href="{{ route('bank.edit', [ $Bank['id']]) }}">
                         <span class="mdi mdi-pen"></span>
                     </a>
 
-                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('bank.show', [ $banks['bank_id']]) }}">
+                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ route('bank.show', [ $Bank['id']]) }}">
                         <span class="mdi mdi-chevron-right"></span>
                     </a>
 
-                    <a style="font-size:20px;" class="action-btn single-btn" href="{{ url('transiction', [ $banks['bank_id']]) }}">
+                    {{-- <a style="font-size:20px;" class="action-btn single-btn" href="{{ url('transiction', [ $Bank['id']]) }}">
                         <span class="mdi mdi-chevron-right"></span>
-                    </a>
+                    </a> --}}
 
                 </td>
             </tr>

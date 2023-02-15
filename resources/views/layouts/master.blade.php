@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="{{ asset('public/css/materialdesignicons.min.css') }}" />
       <link rel="stylesheet" href="{{ asset('public/css/custom.css') }}" />
       <link rel="stylesheet" href="{{ asset('public/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css') }}"/>
+      <link rel="stylesheet" href="{{ asset('public/css/custom_bootstrap.css') }}">
     </head>
 
 <style>
@@ -22,7 +23,7 @@
     width: 100% !important;
     }
 </style>
-    <body>
+    <body style="overflow-x: hidden;">
         @include('layouts.header')
 
         @yield('content')

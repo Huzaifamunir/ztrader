@@ -13,7 +13,9 @@ class Transiction extends Model
     protected $table='transictions';
     protected $fillable = [
         'trans_id',
+        'client_id',
         'bank_id',
+        'sale_id',
         'trans_date',
         'trans_operator',
         'amount',
