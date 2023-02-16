@@ -63,7 +63,11 @@ background: #0d47a1;">
 
         <div  style="margin-left:370px;">
 
-        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+            {!! Form::open(['method' => 'DELETE','route' => ['companies.destroy', $user->id],'style'=>'display:inline']) !!}
+            
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+
+            {!! Form::close() !!}
 
         </div>
 
