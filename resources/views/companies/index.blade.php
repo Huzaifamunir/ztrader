@@ -48,9 +48,9 @@
     <td>
        <a class="btn btn-info" href="{{ route('companies.show',$user->id) }}">Show</a>
        <a class="btn btn-primary" href="{{ route('companies.edit',$user->id) }}">Edit</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['companies.destroy', $user->id],'style'=>'display:inline']) !!}
-            {{-- {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!} --}}
-        {!! Form::close() !!}
+        {{-- {!! Form::open(['method' => 'DELETE','route' => ['companies.destroy', $user->id],'style'=>'display:inline']) !!}
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+        {!! Form::close() !!} --}}
     </td>
   </tr>
  @endforeach

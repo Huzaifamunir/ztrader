@@ -174,17 +174,7 @@ $(document).ready(function(){
 
   mounted() {
 
-    //       $.get("{{ App::make('url')->to('/') }}/main_category",function(data, status){
-    //       $.each(data, function(key,val){
-    //          $("#main_category_list").append("<option value='"+val.id+"' class=main_category id='main_category"+val.id+"'>"+val.name+"</option>");
-    //       });
-    //  });
 
-    //      $.get("{{ App::make('url')->to('/') }}/sub_category",function(data, status){
-    //        $.each(data, function(key,val){
-    //          $("#sub_category_list").append("<option value='"+val.id+"' class=subcategory id='sub_category_"+val.id+"'>"+val.name+"</option>");
-    //        });
-        //  });
        }
 });
 });
